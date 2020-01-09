@@ -56,3 +56,42 @@ body,html{
     background-position: center;
     background-size: cover;
 }
+
+/* Sign up */
+.signup{
+}
+.signup-img{
+    background: url('./static/signup.png');
+    width: 50%;
+    height: 80vh;
+    background-position: center;
+    background-size: cover;
+}
+.signup-form{
+    margin-top: 5%;
+    margin-left: 5%;
+    text-align: center;
+}
+.signup-form h3{
+    font-size: 25px; 
+}
+.signup-form form{
+    margin-top: 50px;
+    color: white;
+}
+.signup-btn{
+    background: #6fd019;
+    border:none;
+    width: 50%;
+    height: 5vh;
+    margin-top: 10px;
+}
+
+/* Login */
+.login-img{
+    background: url('./static/login.png');
+    width: 50%;
+    background-size: cover;
+    background-position: center;
+    height: 80vh;
+}

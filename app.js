@@ -4,6 +4,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
 const homeController = require('./controllers/app');
+const loginController = require('./controllers/login');
 const signupController = require('./controllers/signup');
 
 //Initializations
@@ -24,6 +25,7 @@ app.use('/public/', express.static(path.join(__dirname,'public')));
 
 //Controllers
 app.get('/', homeController );
+app.get('/login', loginController);
 app.get('/signup', signupController);
 
 
