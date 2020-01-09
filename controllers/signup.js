@@ -1,3 +1,3 @@
-module.exports = (req, res) =>{
-    res.render('auth/signup.handlebars');
-}
+module.exports = (req, res) => {
+  res.render('auth/signup.handlebars');
+};
