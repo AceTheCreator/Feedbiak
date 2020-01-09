@@ -2,7 +2,9 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-const SignupController = require('./controllers/signup');
+const exphbs = require('express-handlebars');
+const homeController = require('./controllers/app');
+const signupController = require('./controllers/signup');
 
 //Initializations
 const app = express();
@@ -21,7 +23,8 @@ app.set('view engine', 'handlebars')
 app.use('/public/', express.static(path.join(__dirname,'public')));
 
 //Controllers
-app.get('/signup', SignupController);
+app.get('/', homeController );
+app.get('/signup', signupController);
 
 
 const PORT = 5000;

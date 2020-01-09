@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
+body,html{
+    height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.5;
+    background: #f0eff0;
+
+}
+.navbar{
+    background: #f0eff0;
+}
+.navbar-brand{
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+.navbar button{
+    background: #4952eb;
+    font-size: 13px;
+    font-weight: bold;
+    border:none
+}
+.home{
+
+}
+.home-content{
+    width: 50%;
+    margin-top: 10%;
+}
+.home-content h1, p, .try-btn, .social-handles{
+    margin-left: 30.5%;
+    line-height: 1.8;
+}
+.home-heading{
+    font-weight: bold;
+    font-size: 35px;
+}
+.social-handles img{
+    background: white;
+    width: 38px;
+    padding: 10px;
+    border-radius: 50px;
+    margin-left: 10px;
+}
+.try-btn button{
+    margin-top: 25px;
+    width: auto;
+    height: 5vh;
+    background: #4952eb;
+    border: none;
+}
+.home-img{
+    background: url('./static/remote_work_dribbble.png');
+    margin-top: -4%;
+    width: 50%;
+    height: 100vh;
+    background-position: center;
+    background-size: cover;
+}
