@@ -58,8 +58,6 @@ body,html{
 }
 
 /* Sign up */
-.signup{
-}
 .signup-img{
     background: url('./static/signup.png');
     width: 50%;
@@ -88,10 +86,19 @@ body,html{
 }
 
 /* Login */
+.login-form{
+    margin-top: 10%;
+    margin-left: 20%;
+    text-align: center;
+}
+.login-form form{
+    margin-top: 50px;
+}
 .login-img{
     background: url('./static/login.png');
     width: 50%;
     background-size: cover;
     background-position: center;
     height: 80vh;
+    margin-left: 10%;
 }
