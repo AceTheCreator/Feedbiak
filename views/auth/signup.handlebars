@@ -4,21 +4,21 @@
     </div>
     <div class="signup-form">
         <h3>Create an account</h3>
-        <form method="POST" action="/singup"> 
+        <form method="post" action="/signup"> 
                <div class="form-group">
-    <input type="text" class="form-control" aria-describedby="textHelp" placeholder="Full Name">
+    <input type="text" class="form-control" name="fullname" aria-describedby="textHelp" placeholder="Full Name">
             </div>
             <div class="form-group">
-    <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Email">
+    <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="Email">
             </div>
                 <div class="form-group">
-    <input type="text" class="form-control" aria-describedby="textHelp" placeholder="Company/App Name">
+    <input type="text" class="form-control" name="organization" aria-describedby="textHelp" placeholder="Company/App Name">
             </div>
                 <div class="form-group">
-    <input type="url" class="form-control" aria-describedby="textHelp" placeholder="Subdomain">
+    <input type="url" name="url" class="form-control" name="subdomain" aria-describedby="textHelp" placeholder="Subdomain">
             </div>
                 <div class="form-group">
-    <input type="password" class="form-control" aria-describedby="textHelp" placeholder="Password">
+    <input type="password" name="password" class="form-control" aria-describedby="textHelp" placeholder="Password">
             </div>
             <button type="submit" class="btn btn-primary signup-btn">Sign Up</button>
         </form>

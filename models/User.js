@@ -1,41 +1,29 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
 
-const Schema = new mongoose.Schema();
+// eslint-disable-next-line prefer-destructuring
+const Schema = mongoose.Schema;
 
 const userSchema = Schema({
-  Fullname: {
+  fullname: {
     type: String,
     require: true,
   },
-  Email: {
+  email: {
     type: String,
     require: true,
   },
-  Organization: {
+  organization: {
     type: String,
     require: true,
   },
-  Password: {
+  url: {
+    type: String,
+    require: true,
+  },
+  password: {
     type: String,
     require: true,
   },
 });
-userSchema.pre('save', async ()=>{
-    bcrypt.genSalt(10, function(err, salt) {
-        if(err){
-            throw err
-        }else{
-            bcrypt.hash("B4c0/\/", salt, function(err, hash) {
-                if(!err || userSchema.Password){
-                    User.Password = hash;
-                }else{
-                    throw err;
-                }
-            });  
-        }
-});
 
-const User = mongoose.model('User', userSchema);
-
-module.exports = User
+mongoose.model('users', userSchema);

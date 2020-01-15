@@ -6,9 +6,6 @@ const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
-const homeController = require('./controllers/app');
-const loginController = require('./controllers/login');
-const signupController = require('./controllers/signup');
 
 // Initializations
 const app = express();
@@ -18,7 +15,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true,
 }));
-
 // Mongodb connection
 mongoose.connect('mongodb://localhost:27017/feedbiak', { useMongoClient: true });
 // set view engine
@@ -31,11 +27,12 @@ app.set('view engine', 'handlebars');
 app.use('/public/', express.static(path.join(__dirname, 'public')));
 // Method override middleware
 app.use(methodOverride('_method'));
-// Controllers
-app.get('/', homeController);
-app.get('/login', loginController);
-app.get('/signup', signupController);
 
+// Routes
+const users = require('./controllers/users');
+
+// Use Routes
+app.use(users);
 
 const PORT = 5000;
 
