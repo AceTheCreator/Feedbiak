@@ -54,9 +54,12 @@ router.post('/signup', (req, res) => {
               // Store hash in your password DB.
               newUser.password = hash;
               newUser.save()
-                .then((user) => {
+                .then(user => {
+                  req.flash('success_msg', 'Your account has been created');
                   res.redirect('/login');
-                  console.log('welcome aboard');
+                })
+                .catch(err => {
+                  console.log(err);
                 });
             });
           });

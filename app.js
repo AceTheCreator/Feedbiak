@@ -5,6 +5,8 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
+const flash = require('connect-flash');
+const session = require('express-session');
 const methodOverride = require('method-override');
 
 // Initializations
@@ -27,11 +29,31 @@ app.set('view engine', 'handlebars');
 app.use('/public/', express.static(path.join(__dirname, 'public')));
 // Method override middleware
 app.use(methodOverride('_method'));
-
+// Connect flash-section
+app.use(session({
+  secret: 'funny',
+  resave: true,
+  saveUninitialized: true,
+  cookie: { secure: true },
+}));
+app.use(flash());
+// Global variables "connect-flash"
+app.use((req, res, next) => {
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
+  res.locals.user = req.user || null;
+  next();
+});
 // Routes
 const users = require('./controllers/users');
 
-// Use Routes
+// Index Route
+app.get('/', (req, res) => {
+  res.render('index.handlebars');
+});
+
+// User Routes
 app.use(users);
 
 const PORT = 5000;
