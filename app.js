@@ -34,7 +34,16 @@ app.use(session({
   secret: 'funny',
   resave: true,
   saveUninitialized: true,
-  cookie: { secure: true },
+  cookie: { secure: true, maxAge: 2628000000 },
+  store: new (require('express-sessions'))({
+    storage: 'mongodb',
+    instance: mongoose, // optional
+    host: 'localhost', // optional
+    port: 27017, // optional
+    db: 'feedbiak', // optional
+    collection: 'sessions', // optional
+    expire: 86400, // optional
+  }),
 }));
 app.use(flash());
 // Global variables "connect-flash"
