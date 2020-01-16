@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-shadow */
 const express = require('express');
 
 const mongoose = require('mongoose');
@@ -19,8 +21,37 @@ require('../models/User');
 
 const User = mongoose.model('users');
 
+// User Login Form Post
+router.post('/users/login', (req, res) => {
+  const {
+    email,
+    password,
+  } = req.body;
+  // Try to find a user
+  User.findOne({
+    email,
+  }, (error, user) => {
+    if (user) {
+      // Compare the passwords
+      bcrypt.compare(password, user.password, (error, same) => {
+        if (same) {
+          res.redirect('/home');
+          req.sessionID = user.id;
+          console.log(req.sessionID);
+        } else {
+          res.redirect('/login');
+          console.log('oops something happened');
+        }
+      });
+    } else {
+      res.redirect('/login');
+      console.log('oops something else happened');
+    }
+  });
+});
+
 // User Register Form Post
-router.post('/signup', (req, res) => {
+router.post('/users/signup', (req, res) => {
   const errors = [];
   if (req.body.password.length < 4) {
     errors.push({ text: 'Password must be at 4 characters' });

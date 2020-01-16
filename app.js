@@ -52,7 +52,10 @@ const users = require('./controllers/users');
 app.get('/', (req, res) => {
   res.render('index.handlebars');
 });
-
+// HOme Route
+app.get('/home', (req, res) => {
+  res.send('Hello world');
+});
 // User Routes
 app.use(users);
 
