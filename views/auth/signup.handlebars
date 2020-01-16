@@ -1,24 +1,29 @@
 <div class="signup d-flex">
     <div class="signup-img">
-
+        <img src="../../public/static/meeting.png" alt="">
     </div>
     <div class="signup-form">
         <h3>Create an account</h3>
         <form method="post" action="/signup"> 
                <div class="form-group">
-    <input type="text" class="form-control" name="fullname" aria-describedby="textHelp" placeholder="Full Name">
+                   <label for="fullname">Full name</label>
+    <input type="text" class="form-control" name="fullname" aria-describedby="textHelp" placeholder="John Doe">
             </div>
             <div class="form-group">
-    <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="Email">
+                <label for="email">Email</label>
+    <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="Enter email address">
             </div>
                 <div class="form-group">
-    <input type="text" class="form-control" name="organization" aria-describedby="textHelp" placeholder="Company/App Name">
+                    <label for="organization"> Organization</label>
+    <input type="text" class="form-control" name="organization" aria-describedby="textHelp" placeholder="Dribbble">
             </div>
                 <div class="form-group">
-    <input type="url" name="url" class="form-control" name="subdomain" aria-describedby="textHelp" placeholder="Subdomain">
+                    <label for="subdomain">Subdomain</label>
+    <input type="url" name="url" class="form-control" name="subdomain" aria-describedby="textHelp" placeholder="http://www.dribbble.com">
             </div>
                 <div class="form-group">
-    <input type="password" name="password" class="form-control" aria-describedby="textHelp" placeholder="Password">
+                    <label for="password">Create password</label>
+    <input type="password" name="password" class="form-control" aria-describedby="textHelp" placeholder="Enter your password">
             </div>
             <button type="submit" class="btn btn-primary signup-btn">Sign Up</button>
         </form>

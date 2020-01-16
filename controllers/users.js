@@ -29,7 +29,7 @@ router.post('/signup', (req, res) => {
     res.render('/signup', {
       errors,
       fullname: req.body.fullname,
-      email: req.body.fullname,
+      email: req.body.email,
       organization: req.body.organization,
       url: req.body.url,
       password: req.body.password,
@@ -54,11 +54,11 @@ router.post('/signup', (req, res) => {
               // Store hash in your password DB.
               newUser.password = hash;
               newUser.save()
-                .then(user => {
+                .then((user) => {
                   req.flash('success_msg', 'Your account has been created');
                   res.redirect('/login');
                 })
-                .catch(err => {
+                .catch((err) => {
                   console.log(err);
                 });
             });

@@ -1,26 +1,26 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
 body,html{
-    height: 100vh;
     font-family: 'Poppins', sans-serif;
     line-height: 1.5;
-    background: #f0eff0;
+    background: #ffffff;
 
 }
 .navbar{
-    background: #f0eff0;
+    background: #ffffff;
 }
 .navbar-brand{
     font-weight: bold;
     letter-spacing: 3px;
 }
 .navbar button{
-    background: #4952eb;
+    background: #76d0a5;
     font-size: 13px;
     font-weight: bold;
-    border:none
+    border:none;
+    width: 80px;
 }
-.home{
-
+.header{
+    flex-wrap: wrap;
 }
 .home-content{
     width: 50%;
@@ -29,6 +29,7 @@ body,html{
 .home-content h1, p, .try-btn, .social-handles{
     margin-left: 30.5%;
     line-height: 1.8;
+    color: #373763;
 }
 .home-heading{
     font-weight: bold;
@@ -45,60 +46,78 @@ body,html{
     margin-top: 25px;
     width: auto;
     height: 5vh;
-    background: #4952eb;
+    background: #76d0a5;
     border: none;
 }
 .home-img{
-    background: url('./static/remote_work_dribbble.png');
-    margin-top: -4%;
     width: 50%;
-    height: 100vh;
     background-position: center;
     background-size: cover;
+}
+.home-img img{
+    width: 100%;
 }
 
 /* Sign up */
+.signup{
+    flex-wrap: wrap;
+    margin-top: 2%;
+}
 .signup-img{
-    background: url('./static/signup.png');
     width: 50%;
-    height: 80vh;
     background-position: center;
     background-size: cover;
 }
+.signup-img img{
+    width: 100%;
+}
 .signup-form{
-    margin-top: 5%;
-    margin-left: 5%;
-    text-align: center;
+    margin-left: 13%;
+    text-align: left;
+}
+.signup-form input{
+    border-top-color: transparent;
+    border-left-color: transparent;
+    border-right-color: transparent;
 }
 .signup-form h3{
     font-size: 25px; 
 }
 .signup-form form{
     margin-top: 50px;
-    color: white;
 }
 .signup-btn{
-    background: #6fd019;
+    background: #76d0a5;
     border:none;
-    width: 50%;
+    width: 100%;
     height: 5vh;
     margin-top: 10px;
 }
 
 /* Login */
+.login{
+    flex-wrap: wrap;
+}
 .login-form{
     margin-top: 10%;
-    margin-left: 20%;
-    text-align: center;
+    margin-left: 16%;
+    text-align: left;
 }
 .login-form form{
     margin-top: 50px;
 }
+.login-form input{
+    border-top-color: transparent;
+    border-left-color: transparent;
+    border-right-color: transparent;
+}
 .login-img{
-    background: url('./static/login.png');
     width: 50%;
     background-size: cover;
     background-position: center;
     height: 80vh;
     margin-left: 10%;
+}
+.login-img img{
+    width: 100%;
 }
