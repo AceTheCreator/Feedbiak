@@ -36,16 +36,14 @@ router.post('/users/login', (req, res) => {
       bcrypt.compare(password, user.password, (error, same) => {
         if (same) {
           res.redirect('/home');
-          req.sessionID = user.id;
-          console.log(req.sessionID);
+          
+          req.session.userId = user._id;
         } else {
           res.redirect('/login');
-          console.log('oops something happened');
         }
       });
     } else {
       res.redirect('/login');
-      console.log('oops something else happened');
     }
   });
 });

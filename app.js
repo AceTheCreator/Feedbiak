@@ -5,6 +5,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
+const connectMongo = require('connect-mongo');
 const flash = require('connect-flash');
 const session = require('express-session');
 const methodOverride = require('method-override');
@@ -29,22 +30,18 @@ app.set('view engine', 'handlebars');
 app.use('/public/', express.static(path.join(__dirname, 'public')));
 // Method override middleware
 app.use(methodOverride('_method'));
-// Connect flash-section
+// Connect session and mongo
+const mongoStore = connectMongo(session);
 app.use(session({
   secret: 'funny',
   resave: true,
   saveUninitialized: true,
-  cookie: { secure: true, maxAge: 2628000000 },
-  store: new (require('express-sessions'))({
-    storage: 'mongodb',
-    instance: mongoose, // optional
-    host: 'localhost', // optional
-    port: 27017, // optional
-    db: 'feedbiak', // optional
-    collection: 'sessions', // optional
-    expire: 86400, // optional
+  // eslint-disable-next-line new-cap
+  store: new mongoStore({
+    mongooseConnection: mongoose.connection,
   }),
 }));
+// Connect flash-section
 app.use(flash());
 // Global variables "connect-flash"
 app.use((req, res, next) => {
@@ -56,14 +53,19 @@ app.use((req, res, next) => {
 });
 // Routes
 const users = require('./controllers/users');
+// Route Middlewares
+const auth = require('./middlewares/auth');
 
 // Index Route
 app.get('/', (req, res) => {
   res.render('index.handlebars');
 });
-// HOme Route
-app.get('/home', (req, res) => {
-  res.send('Hello world');
+// Home Route
+app.get('/home', auth, (req, res) => {
+  if (req.sessionID) {
+    res.send('Hello world');
+  }
+  res.redirect('/login');
 });
 // User Routes
 app.use(users);
