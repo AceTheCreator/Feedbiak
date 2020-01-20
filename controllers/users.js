@@ -35,9 +35,8 @@ router.post('/users/login', (req, res) => {
       // Compare the passwords
       bcrypt.compare(password, user.password, (error, same) => {
         if (same) {
+          req.session.userId = user.id;
           res.redirect('/home');
-          
-          req.session.userId = user._id;
         } else {
           res.redirect('/login');
         }

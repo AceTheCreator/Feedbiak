@@ -61,11 +61,13 @@ app.get('/', (req, res) => {
   res.render('index.handlebars');
 });
 // Home Route
-app.get('/home', auth, (req, res) => {
+app.get('/home', auth, (req, res, next) => {
+  console.log('home route success');
   if (req.sessionID) {
     res.send('Hello world');
   }
   res.redirect('/login');
+  next();
 });
 // User Routes
 app.use(users);
