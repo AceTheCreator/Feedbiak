@@ -25,6 +25,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('handlebars', exphbs({
   defaultLayout: 'main',
 }));
+// Database Model
+const boardSchmea = require('./models/Board');
+
 app.set('view engine', 'handlebars');
 // set static folder
 app.use('/public/', express.static(path.join(__dirname, 'public')));
@@ -51,25 +54,39 @@ app.use((req, res, next) => {
   res.locals.user = req.user || null;
   next();
 });
+
 // Routes
 const users = require('./controllers/users');
+const boards = require('./controllers/boards');
 // Route Middlewares
 const auth = require('./middlewares/auth');
+const redirectIfAuth = require('./middlewares/redirectIfAuth');
 
 // Index Route
-app.get('/', (req, res) => {
+app.get('/', redirectIfAuth, (req, res) => {
   res.render('index.handlebars');
 });
 // Home Route
-app.get('/home', auth, (req, res, next) => {
+app.get('/admin', auth, (req, res, next) => {
+  let admin;
   if (req.session.userId) {
-    return res.render('routes/admin.handlebars');
+    admin = 'T';
+    return boardSchmea.find({ boardOwner: req.session.userId })
+      .sort({ date: 'desc' })
+      .then((boards) => {
+        res.render('routes/admin', {
+          boards,
+          admin,
+        });
+      });
   }
   res.redirect('/login');
   next();
 });
 // User Routes
 app.use(users);
+// Boards Routes
+app.use(boards);
 
 const PORT = 5000;
 

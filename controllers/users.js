@@ -5,14 +5,17 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
+// RedirectifAuthenticated Middleware
+const redirectIfAuth = require('../middlewares/redirectIfAuth');
+
 const router = express.Router();
 
 // Signup route
-router.get('/signup', (req, res) => {
+router.get('/signup', redirectIfAuth, (req, res) => {
   res.render('auth/signup.handlebars');
 });
 // Login
-router.get('/login', (req, res) => {
+router.get('/login', redirectIfAuth, (req, res) => {
   res.render('auth/login.handlebars');
 });
 
@@ -36,7 +39,7 @@ router.post('/users/login', (req, res) => {
       bcrypt.compare(password, user.password, (error, same) => {
         if (same) {
           req.session.userId = user.id;
-          res.redirect('/home');
+          res.redirect('/admin');
         } else {
           res.redirect('/login');
         }
@@ -94,6 +97,11 @@ router.post('/users/signup', (req, res) => {
         }
       });
   }
+});
+router.get('/logout', (req, res) => {
+  req.session.destroy(() => {
+    res.redirect('/');
+  });
 });
 
 

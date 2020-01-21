@@ -4,10 +4,18 @@
       <a class="navbar-brand" href="/">
     Feedbiak
   </a>
+  {{#if admin}}
     <span class="navbar-text">
+      <a href="/logout">
+      <button class="btn btn-primary">Logout</button>
+      </a>
+    </span>
+    {{else}}
+      <span class="navbar-text">
       <a href="/login">
       <button class="btn btn-primary">Login</button>
       </a>
     </span>
+    {{/if}}
 </div>
 </nav>

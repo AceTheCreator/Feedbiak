@@ -3,6 +3,8 @@ body,html{
     font-family: 'Poppins', sans-serif;
     line-height: 1.5;
     background: #ffffff;
+    margin: 0;
+    padding: 0;
 
 }
 .btn{
@@ -12,6 +14,12 @@ body,html{
 .btn a{
     color: white;
     text-decoration: none;
+}
+a{
+text-decoration: none;
+color: inherit;
+letter-spacing: .01em;
+word-spacing: .02em;
 }
 h3{
     font-weight: bold;
@@ -37,7 +45,7 @@ h3{
     width: 50%;
     margin-top: 10%;
 }
-.home-content h1, p, .try-btn, .social-handles{
+.home-content h1, .text-summary, .try-btn, .social-handles{
     margin-left: 30.5%;
     line-height: 1.8;
     color: #373763;
@@ -142,13 +150,51 @@ h3{
     font-weight: bold;
     padding: 10px;
 }
-.board-lists{
+.board-list{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    margin-top: 2%;
+}
+.board-item{
+display: flex;
+-webkit-box-orient: vertical;
+-webkit-box-direction: normal;
+flex-direction: column;
+min-width: 31.3%;
+max-width: 31.3%;
+padding: 12px 15px;
+margin: 0 2% 2% 0;
+background:
+#f5f5f5;
+border-radius: 5px;
+transition: all .1s ease-in-out;
+box-sizing: border-box;
+word-wrap: break-word;
+word-break: break-word;
+font-weight: bold;
+font-size: 14px;
+}
+/* Create Board */
+.create-board{
+    text-align: center;
+}
+.create-board .card{
+    text-align: center;
     margin-top: 5%;
+    width: 70%;
+    margin-left: 15%;
+    padding-top: 40px;
 }
-.board-lists table{
-    background: #f6f6f6;
-    border-radius: 5px;
+.create-board .card p {
+    padding-top: 10px;
 }
-.board-lists tbody{
-    padding-left: 20px;
+.create-board .card form{
+    padding: 50px;
+}
+.create-board .card form input{
+    height: 7vh;
+}
+.create-board .card form button{
+    float: right;
 }

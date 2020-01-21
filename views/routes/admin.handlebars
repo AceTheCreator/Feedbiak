@@ -8,26 +8,13 @@ You can invite unlimited teammates or users to give you feedback <span style="fl
 </div>
 <div class="boards">
     <h4>Boards <span class="btn btn-primary" style="float: right;"><a href="/create-board">CREATE BOARD</a></span></h4>
-    <div class="board-lists">
-        <table class="table table-borderless">
-  <thead>
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Posts</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Mark</td>
-      <td>Otto</td>
-    </tr>
-    <tr>
-      <td>Jacob</td>
-      <td>Thornton</td>
-    </tr>
-  </tbody>
-</table>
-    </div>
 </div>
+    <div class="board-list">
+      {{#each boards}}
+     <a href="#" class="board-item">{{boardName}}
+     </a>
+      {{else}} Sorry you havent created any board yet
+      {{/each}}
+    </div>
     </div>
 </div>
