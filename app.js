@@ -62,9 +62,8 @@ app.get('/', (req, res) => {
 });
 // Home Route
 app.get('/home', auth, (req, res, next) => {
-  console.log('home route success');
-  if (req.sessionID) {
-    res.send('Hello world');
+  if (req.session.userId) {
+    return res.render('routes/admin.handlebars');
   }
   res.redirect('/login');
   next();
