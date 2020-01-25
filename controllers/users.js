@@ -41,10 +41,12 @@ router.post('/users/login', (req, res) => {
           req.session.userId = user.id;
           res.redirect('/admin');
         } else {
+          req.flash('error_msg', 'OOoops you entered a wrong password');
           res.redirect('/login');
         }
       });
     } else {
+      req.flash('error_msg', 'email or password not correct');
       res.redirect('/login');
     }
   });

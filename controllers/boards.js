@@ -1,15 +1,12 @@
+/* eslint-disable no-shadow */
 const express = require('express');
 
 const router = express.Router();
 const mongoose = require('mongoose');
 // Require Board model
 require('../models/Board');
-// Require User model
-require('../models/User');
 
 const Board = mongoose.model('boards');
-const User = mongoose.model('users');
-
 
 router.get('/create-board', (req, res) => {
   res.render('routes/createBoard.handlebars');
@@ -34,6 +31,7 @@ router.post('/boards', (req, res) => {
           boardUrl: req.body.boardUrl,
         });
         newBoard.save()
+          // eslint-disable-next-line no-unused-vars
           .then((board) => {
             console.log('added a new board');
             res.redirect('/admin');
@@ -42,6 +40,16 @@ router.post('/boards', (req, res) => {
             console.log(err);
           });
       }
+    });
+});
+
+// Get board route
+router.get('/board/:id', async (req, res) => {
+  Board.findOne({
+    _id: req.params.id,
+  })
+    .then((board) => {
+      res.render('routes/board.handlebars');
     });
 });
 
