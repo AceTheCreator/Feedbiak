@@ -3,17 +3,22 @@ const express = require('express');
 
 const router = express.Router();
 const mongoose = require('mongoose');
+// Require the Auth middleware
+const Auth = require('../middlewares/auth');
 // Require Board model
 require('../models/Board');
+// Require Board Post Model
+require('../models/BoardPost');
 
 const Board = mongoose.model('boards');
+const Post = mongoose.model('boardPost');
 
-router.get('/create-board', (req, res) => {
+router.get('/create-board', Auth, (req, res) => {
   res.render('routes/createBoard.handlebars');
 });
 
 // Create board
-router.post('/boards', (req, res) => {
+router.post('/boards', Auth, (req, res) => {
   const {
     boardName,
     boardUrl,
@@ -34,6 +39,7 @@ router.post('/boards', (req, res) => {
           // eslint-disable-next-line no-unused-vars
           .then((board) => {
             console.log('added a new board');
+            req.session.boardId = board.id;
             res.redirect('/admin');
           })
           .catch((err) => {
@@ -43,15 +49,34 @@ router.post('/boards', (req, res) => {
     });
 });
 
-// Get board route
-router.get('/board/:id', async (req, res) => {
-  Board.findOne({
-    _id: req.params.id,
-  })
-    .then((board) => {
-      res.render('routes/board.handlebars');
+// Create board post
+router.post('/create-post', Auth, async (req, res) => {
+  const newPost = new Post({
+    boardId: req.session.boardId,
+    title: req.body.postTitle,
+    description: req.body.postDescription,
+  });
+  newPost.save()
+    .then((post) => {
+      res.redirect(`board/${req.session.boardId}`);
+    })
+    .catch((err) => {
+      throw err;
     });
 });
 
+// Get board route
+router.get('/board/:id', Auth, async (req, res) => {
+  Post.find({
+    boardId: req.params.id,
+  })
+  // Post.find({ boardId: req.session.boardId })
+  //   .sort({ date: 'desc' })
+    .then((posts) => {
+      res.render('routes/board.handlebars', {
+        posts,
+      });
+    });
+});
 
 module.exports = router;

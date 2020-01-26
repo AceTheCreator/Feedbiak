@@ -1,1 +1,44 @@
-<h1>Hello world</h1>
+<div class="container">
+    <div class="board">
+        <div class="create-board-post">
+    
+        <div class="board-post-form">
+                  <div class="form-post-heading">
+          <span>create a post</span>
+      </div>
+            <form method="POST" action="/create-post"> 
+  <div class="form-group">
+      <div class="full-input"><label for='name'>Title</label>
+    <input type="text" placeholder="Short, descriptive title" name="postTitle" class="form-control" id="exampleInputText">
+  </div></div>
+  <div class="form-group">
+       <div class="full-input"><label for='name'>Description</label>
+   <textarea name="postDescription" placeholder="Any additional details" id="post-details"></textarea>
+  </div></div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+        </div>
+    </div>
+    <div class="board-posts">
+      {{#each posts}}
+    <div class="board-post-list">
+        <div class="upvote">
+        <i class="fas fa-caret-up"></i>
+        {{upvote.default}}
+      </div>
+      <a class="board-post-link">
+       <div class="body">
+         <h6 class="post-title">{{title}}</h6>
+         <p class="post-description">{{description}}</p>
+       </div>
+        <div class="comment-count">
+         <i class="far fa-comment-alt"></i>
+       </div>
+       </a>
+    </div>
+      {{else}} Sorry you havent created any post yet
+      {{/each}}
+      </div>
+    </div>
+</div>
+</div>

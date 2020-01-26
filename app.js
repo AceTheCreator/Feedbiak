@@ -73,6 +73,7 @@ app.get('/admin', auth, (req, res, next) => {
     admin = 'T';
     return boardSchmea.find({ boardOwner: req.session.userId })
       .sort({ date: 'desc' })
+      // eslint-disable-next-line no-shadow
       .then((boards) => {
         res.render('routes/admin', {
           boards,
