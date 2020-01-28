@@ -203,7 +203,7 @@ font-size: 14px;
     display: flex;
     padding-top: 5%;
 }
-.create-board-post{
+.left-ui-panel{
     width: 30%;
     flex-wrap: nowrap;
 }
@@ -248,7 +248,7 @@ font-size: 14px;
   .board-post-form button{
       text-align: right;
   }
-.board-posts{
+.right-ui-panel{
     border-radius: 10px;
     background: #f5f5f5;
     margin-left: 50px;
@@ -292,4 +292,11 @@ font-size: 14px;
 }
 .post-title{
     font-weight: bold;
+}
+
+/* Post */
+.status{
+    background: #f5f5f5;
+    padding: 20px;
+    border-radius: 10px;
 }
