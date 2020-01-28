@@ -58,7 +58,8 @@ router.post('/create-post', Auth, async (req, res) => {
   });
   newPost.save()
     .then((post) => {
-      res.redirect(`board/${req.session.boardId}`);
+      console.log(req.session.boardId);
+      res.redirect(`/board/${req.session.boardId}`);
     })
     .catch((err) => {
       throw err;

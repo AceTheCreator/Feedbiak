@@ -58,6 +58,7 @@ app.use((req, res, next) => {
 // Routes
 const users = require('./controllers/users');
 const boards = require('./controllers/boards');
+const posts = require('./controllers/boardPost');
 // Route Middlewares
 const auth = require('./middlewares/auth');
 const redirectIfAuth = require('./middlewares/redirectIfAuth');
@@ -88,6 +89,8 @@ app.get('/admin', auth, (req, res, next) => {
 app.use(users);
 // Boards Routes
 app.use(boards);
+// Board Post Routes;
+app.use(posts);
 
 const PORT = 5000;
 

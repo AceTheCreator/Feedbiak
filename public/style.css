@@ -228,7 +228,6 @@ font-size: 14px;
     line-height: 1em;
     margin-top: -15px;
 }
-.board-post-form textarea{}
 .board-post-form input::placeholder,textarea::placeholder{
     color: #a7a7a7;
     font-size: 15px;
