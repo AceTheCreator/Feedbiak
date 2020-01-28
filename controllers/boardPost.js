@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 // Get Post
-router.get('/board-post/123', (req, res) => {
+router.get('/board-post/:id', (req, res) => {
   res.send('Hello');
 });
 

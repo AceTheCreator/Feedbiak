@@ -284,6 +284,11 @@ font-size: 14px;
     -webkit-box-flex: 1;
     flex: 1;
     padding: 5px 15px 5px 0;
+    text-decoration: none;
+}
+.board-post-link:hover{
+    text-decoration: none;
+    color: inherit;
 }
 .post-title{
     font-weight: bold;

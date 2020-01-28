@@ -12,17 +12,6 @@ const boardSchema = Schema({
   boardUrl: {
     type: String,
   },
-  boardPost: {
-    boardPostTitle: {
-      type: String,
-    },
-    boardPostDescription: {
-      type: String,
-    },
-    boardPostProgress: {
-      type: Array,
-    },
-  },
 });
 
 module.exports = mongoose.model('boards', boardSchema);

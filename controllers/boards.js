@@ -38,8 +38,6 @@ router.post('/boards', Auth, (req, res) => {
         newBoard.save()
           // eslint-disable-next-line no-unused-vars
           .then((board) => {
-            console.log('added a new board');
-            req.session.boardId = board.id;
             res.redirect('/admin');
           })
           .catch((err) => {
@@ -49,35 +47,35 @@ router.post('/boards', Auth, (req, res) => {
     });
 });
 
-// Create board post
-router.post('/create-post', Auth, async (req, res) => {
-  const newPost = new Post({
-    boardId: req.session.boardId,
-    title: req.body.postTitle,
-    description: req.body.postDescription,
-  });
-  newPost.save()
-    .then((post) => {
-      console.log(req.session.boardId);
-      res.redirect(`/board/${req.session.boardId}`);
-    })
-    .catch((err) => {
-      throw err;
-    });
-});
-
 // Get board route
+let postidentifier;
 router.get('/board/:id', Auth, async (req, res) => {
-  Post.find({
-    boardId: req.params.id,
-  })
-  // Post.find({ boardId: req.session.boardId })
-  //   .sort({ date: 'desc' })
+  postidentifier = req.params.id;
+  Post.find({ boardId: req.params.id })
+    .sort({ date: 'desc' })
     .then((posts) => {
       res.render('routes/board.handlebars', {
         posts,
       });
     });
 });
+
+// Create board post
+router.post('/create-post', Auth, async (req, res) => {
+  const newPost = new Post({
+    boardId: postidentifier,
+    title: req.body.postTitle,
+    description: req.body.postDescription,
+  });
+  newPost.save()
+    .then((post) => {
+      console.log(req.session.boardId);
+      res.redirect(`/board/${postidentifier}`);
+    })
+    .catch((err) => {
+      throw err;
+    });
+});
+
 
 module.exports = router;
