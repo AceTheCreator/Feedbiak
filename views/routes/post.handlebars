@@ -4,15 +4,15 @@
         <div class="left-ui-panel">
             <div class="status">
                 <p>Details</p>
-                <form action="">
+                <form action="/post/edit/{{post.id}}?_method=PUT" method="POST">
                     <p>Status</p>
                     <select class="custom-select">
-  <option value="1">Open</option>
-  <option value="2">In Progress</option>
-  <option value="3">Completed</option>
-  <option value="4"> Under Review </option>
-  <option value="5">Planned</option>
-  <option value="6"> Closed </option>
+  <option value="1" name="open" >Open</option>
+  <option value="2" name="in-progress" >In Progress</option>
+  <option value="3" name= "Completed">Completed</option>
+  <option value="4" name="Under-Review"> Under Review </option>
+  <option value="5" name="Planned">Planned</option>
+  <option value="6" name="Closed"> Closed </option>
 </select>
  <div class="delete-update">
      <img src="../../public/static/bin.svg" alt="">
@@ -33,11 +33,11 @@
          <h6 class="post-title">{{post.title}}</h6>
          <p class="post-description">{{post.description}}</p>
      <div class="commentComposer">
-             <form class="imageForm composerForm tabbed">
+             <form class="imageForm composerForm tabbed" action="/post-comment" method="POST">
                  <div class="mentionsTextarea">
                      <div class="autoResizeTextarea" style="">
                          <span class="inputContainer">
-                             <textarea autocomplete="off" placeholder="Leave a comment" rows="1" style=""></textarea>
+                             <textarea name="commentText" autocomplete="off" placeholder="Leave a comment" rows="1" style=""></textarea>
                              </span>
                              </div>
                              </div>
@@ -55,16 +55,17 @@
        
         </div>    
     </div>
+        {{#each comment}}
         <div class="comments-activity">
             <div class="user-img">
                 <img src="../../public/static/user.webp" alt="">
             </div>
             <div class="comment-body">
                 <div class="user-name">
-                    Elegbede Azeez
+                   {{username}}
                 </div>
                 <div class="comment-text">
-                    <p>Noticed you just added a new content</p>
+                    <p>{{text}}</p>
                 </div>
                 <div class="comment-func">
                     <div class="comment-date">
@@ -80,54 +81,8 @@
             </div>
             
         </div>
-         <div class="comments-activity">
-            <div class="user-img">
-                <img src="../../public/static/user.webp" alt="">
-            </div>
-            <div class="comment-body">
-                <div class="user-name">
-                    Elegbede Azeez
-                </div>
-                <div class="comment-text">
-                    <p>Noticed you just added a new content</p>
-                </div>
-                <div class="comment-func">
-                    <div class="comment-date">
-                        6 day ago
-                    </div>
-                    <div class="edit-comment">
-                        edit comment
-                    </div>
-                    <div class="reply">
-                        reply comment
-                    </div>
-                </div>
-            </div>
-            
-        </div>
-         <div class="comments-activity">
-            <div class="user-img">
-                <img src="../../public/static/user.webp" alt="">
-            </div>
-            <div class="comment-body">
-                <div class="user-name">
-                    Elegbede Azeez
-                </div>
-                <div class="comment-text">
-                    <p>Noticed you just added a new content</p>
-                </div>
-                <div class="comment-func">
-                    <div class="comment-date">
-                        6 day ago
-                    </div>
-                    <div class="edit-comment">
-                        edit comment
-                    </div>
-                    <div class="reply">
-                        reply comment
-                    </div>
-                </div>
-            </div>
+        {{else}} No comment activity yet
+        {{/each}}
             
         </div>
     </div>

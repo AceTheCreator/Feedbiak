@@ -12,15 +12,24 @@ const BoardPost = Schema({
   description: {
     type: String,
   },
+  status: {
+    type: String,
+  },
   date: { type: Date, default: Date.now },
   upvote: {
     type: Number,
     default: 0,
   },
-  comment: [{
-    body: String,
-    date: Date,
-  }],
+  comments: [{ type: Schema.Types.ObjectId, ref: 'Comments' }],
+});
+const CommentSchema = Schema({
+  postId: { type: String },
+  username: { type: String },
+  text: { type: String },
+  date: { type: Date },
+  avater: { type: String },
 });
 
-module.exports = mongoose.model('boardPost', BoardPost);
+const Comment = mongoose.model('comment', CommentSchema);
+const Post = mongoose.model('boardPost', BoardPost);
+module.exports = (Comment, Post);
