@@ -10,6 +10,9 @@ body,html{
 .btn{
     background: #76d0a5;
     border-color: transparent;
+    font-size: 12px;
+    color: white;
+    font-weight: bold;
 }
 .btn a{
     color: white;
@@ -27,6 +30,8 @@ h3{
 }
 .navbar{
     background: #ffffff;
+    border: 1px solid rgb(233, 233, 233);
+    border-top-color: transparent;
 }
 .navbar-brand{
     font-weight: bold;
@@ -209,17 +214,23 @@ font-size: 14px;
 }
 .board-post-form{
     background: #f5f5f5;
+    border: 1px solid #efefef;
     padding: 20px;
     border-radius: 10px;
 }
 .board-post-form form{
     margin-top: 10px;
 }
+.form-post-heading{
+    text-align: center;
+    padding-bottom: 10px;
+    font-size: 18px;
+}
 .board-post-form .full-input {
     display: inline-block;
     padding: 3px;
     background: white;
-    border-radius: 10px;
+    border-radius: 5px;
   }
 .board-post-form input {
     outline: none;
@@ -243,14 +254,33 @@ font-size: 14px;
     letter-spacing: 2px;
   }
   .board-post-form textarea{
-      border: none;
+    text-indent: 10px;
+    -webkit-box-flex: 1;
+    flex: 1;
+    line-height: 21px;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    resize: none;
+    outline: none;
+    color: #333;
+    background: none;
+    font-size: 15px;
+    line-height: 22px;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-font-smoothing: antialiased;
+    opacity: 1;
+    min-height: 21px;
+  }
+  .board-post-btn{
+    text-align: right;
   }
   .board-post-form button{
-      text-align: right;
+      font-size: 15px;
   }
 .right-ui-panel{
     border-radius: 10px;
-    background: #f5f5f5;
     margin-left: 50px;
     width: 100%;
     padding: 20px;
@@ -261,17 +291,27 @@ font-size: 14px;
     margin: 20px 0 15px;
 }
 .upvote{
+    text-align: center;
+    background: rgb(255, 255, 255);
+    border: 1px solid #efefef;
+    border-radius: 8px;
     min-width: 40px;
-    margin: 0 10px 0 0;
     align-self: flex-start;
     width: 38px;
     cursor: pointer;
-    padding: 8px 0 3px;
+    margin-top: -5px;
+    padding:0px
 }
 .upvote i{
     font-size: 25px;
+    color: teal;
+}
+.upvote .count{
+    margin-left: 2px;
 }
 .board-post-link{
+    margin-left: 15px;
+    margin-top: -5px;
     cursor: pointer;
     display: flex;
     -webkit-box-orient: horizontal;
@@ -292,11 +332,138 @@ font-size: 14px;
 }
 .post-title{
     font-weight: bold;
+    font-size: 14px;
+}
+.post-description{
+    font-size: 14px;
 }
 
 /* Post */
-.status{
-    background: #f5f5f5;
-    padding: 20px;
-    border-radius: 10px;
+.progress{
+    margin-top: 20px;
+
+}
+.status img{
+    width: 20px;
+}
+.delete-update{
+    margin-top: 20px;
+}
+.delete-update button{
+    float: right;
+}
+.commentComposer{
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+}
+.commentComposer .composerForm {
+    border: 1px solid #ddd;
+    background: #fff;
+    border-radius: 3px;
+    width: 200%;
+}
+.commentComposer .composerForm .autoResizeTextarea {
+    border: 1px solid #ddd;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-top-color: transparent;
+    border-radius: 0px;
+}
+.autoResizeTextarea {
+    padding: 8px 12px;
+    background: #fff;
+    cursor: text;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+.autoResizeTextarea .inputContainer {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    flex-direction: row;
+}
+.autoResizeTextarea .inputContainer textarea {
+    -webkit-box-flex: 1;
+    flex: 1;
+    line-height: 21px;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    resize: none;
+    outline: none;
+    color: #333;
+    background: none;
+    font-size: 15px;
+    line-height: 22px;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-font-smoothing: antialiased;
+    opacity: 1;
+    min-height: 21px;
+}
+.commentComposer .composerForm .buttonBar {
+    float: right;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    flex-direction: row;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+   
+    padding: 12px;
+}
+.commentComposer .composerForm .buttonBar .rightContainer {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    flex-direction: row;
+    -webkit-box-align: center;
+    align-items: center;
+    max-width: 250px;
+}
+.commentComposer .composerForm .buttonBar .rightContainer .teamNotifyMessage {
+    margin: 0 12px;
+    color: #666;
+    font-size: 12px;
+    line-height: 17px;
+}
+.commentComposer .composerForm .buttonBar .rightContainer .button {
+    min-width: 80px;
+}
+.activity-heading{
+    margin-top: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    color: rgb(82, 82, 82);
+}
+.comments-activity{
+    margin-top: 20px;
+    display: flex;
+} 
+.user-img img{
+    width: 30px;
+}
+.comment-body{
+    margin-left: 22px;
+}
+.comment-body .user-name{
+    color: teal;
+}
+.comment-body .comment-text, .comment-body .comment-text p{
+font-size: 14px;
+margin-top: 10px;
+}
+.comment-func{
+    display: flex;
+    font-size: 13px;
+    margin-left: -10px;
+    color: rgb(116, 116, 116);
+}
+.comment-func div{
+    margin-left: 10px;
 }

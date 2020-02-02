@@ -3,14 +3,132 @@
             <div class="board">
         <div class="left-ui-panel">
             <div class="status">
-                <p>Post status</p>
-                <div class="in-progress">
-                    <p>In Progress</p>
-                </div>
+                <p>Details</p>
+                <form action="">
+                    <p>Status</p>
+                    <select class="custom-select">
+  <option value="1">Open</option>
+  <option value="2">In Progress</option>
+  <option value="3">Completed</option>
+  <option value="4"> Under Review </option>
+  <option value="5">Planned</option>
+  <option value="6"> Closed </option>
+</select>
+ <div class="delete-update">
+     <img src="../../public/static/bin.svg" alt="">
+      <button type="submit" class="btn">Update</button>
+ </div>
+                </form>
             </div>
     </div>
     <div class="right-ui-panel">
-        <p>{{post.title}}</p>      
+        <div class="board-post-list">
+             <div class="upvote">
+        <i class="fas fa-caret-up"></i>
+        {{upvote.default}}
+        <div class="count">0</div>
+      </div>
+      <div class="board-post-link">
+       <div class="body">
+         <h6 class="post-title">{{post.title}}</h6>
+         <p class="post-description">{{post.description}}</p>
+     <div class="commentComposer">
+             <form class="imageForm composerForm tabbed">
+                 <div class="mentionsTextarea">
+                     <div class="autoResizeTextarea" style="">
+                         <span class="inputContainer">
+                             <textarea autocomplete="off" placeholder="Leave a comment" rows="1" style=""></textarea>
+                             </span>
+                             </div>
+                             </div>
+                             <div class="buttonBar">
+                                 <div class="imageInput">
+                              <div class="rightContainer">
+                                             <div class="teamNotifyMessage">The post author and voters will get an&nbsp;email.</div>
+                                             <button type="submit" class="btn"><span class="label">Submit</span><span class="loader"> </span></button></div></div></form>
+        </div>
+         <div class="activity-heading">
+                Comment Activity
+            </div>
+       </div>
+       </div>
+       
+        </div>    
     </div>
+        <div class="comments-activity">
+            <div class="user-img">
+                <img src="../../public/static/user.webp" alt="">
+            </div>
+            <div class="comment-body">
+                <div class="user-name">
+                    Elegbede Azeez
+                </div>
+                <div class="comment-text">
+                    <p>Noticed you just added a new content</p>
+                </div>
+                <div class="comment-func">
+                    <div class="comment-date">
+                        6 day ago
+                    </div>
+                    <div class="edit-comment data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"">
+                        edit comment
+                    </div>
+                    <div class="reply">
+                        reply comment
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+         <div class="comments-activity">
+            <div class="user-img">
+                <img src="../../public/static/user.webp" alt="">
+            </div>
+            <div class="comment-body">
+                <div class="user-name">
+                    Elegbede Azeez
+                </div>
+                <div class="comment-text">
+                    <p>Noticed you just added a new content</p>
+                </div>
+                <div class="comment-func">
+                    <div class="comment-date">
+                        6 day ago
+                    </div>
+                    <div class="edit-comment">
+                        edit comment
+                    </div>
+                    <div class="reply">
+                        reply comment
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+         <div class="comments-activity">
+            <div class="user-img">
+                <img src="../../public/static/user.webp" alt="">
+            </div>
+            <div class="comment-body">
+                <div class="user-name">
+                    Elegbede Azeez
+                </div>
+                <div class="comment-text">
+                    <p>Noticed you just added a new content</p>
+                </div>
+                <div class="comment-func">
+                    <div class="comment-date">
+                        6 day ago
+                    </div>
+                    <div class="edit-comment">
+                        edit comment
+                    </div>
+                    <div class="reply">
+                        reply comment
+                    </div>
+                </div>
+            </div>
+            
+        </div>
     </div>
 </div>
