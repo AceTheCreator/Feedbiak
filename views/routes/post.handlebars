@@ -5,21 +5,32 @@
             <div class="status">
                 <p>Details</p>
                 <form action="/post/edit/{{post.id}}?_method=PUT" method="POST">
+                 <input type="hidden" name="_method" value="POST">
                     <p>Status</p>
-                    <select class="custom-select">
-  <option value="1" name="open" >Open</option>
-  <option value="2" name="in-progress" >In Progress</option>
-  <option value="3" name= "Completed">Completed</option>
-  <option value="4" name="Under-Review"> Under Review </option>
-  <option value="5" name="Planned">Planned</option>
-  <option value="6" name="Closed"> Closed </option>
+                    <select class="custom-select" name="progress">
+  <option value="Open">Open</option>
+  <option value="In Progress">In Progress</option>
+  <option value="Completed">Completed</option>
+  <option value="Under Review"> Under Review </option>
+  <option value="Planned">Planned</option>
+  <option value="Closed"> Closed </option>
 </select>
- <div class="delete-update">
-     <img src="../../public/static/bin.svg" alt="">
+ <div class="update">
       <button type="submit" class="btn">Update</button>
  </div>
                 </form>
+                <form method="POST" action="/post/{{post.id}}?_method=DELETE">
+  <input type="hidden" name="_method" value="DELETE">
+ <button type="submit" class="btn delete">
+      <img  src="../../public/static/bin.svg" alt="">
+ </button>
+  </form>
             </div>
+  <div class="edit-post">
+                  <a href="" class="edit-post">
+      Edit this post
+  </a>
+  </div>
     </div>
     <div class="right-ui-panel">
         <div class="board-post-list">
@@ -29,6 +40,7 @@
         <div class="count">0</div>
       </div>
       <div class="board-post-link">
+          
        <div class="body">
          <h6 class="post-title">{{post.title}}</h6>
          <p class="post-description">{{post.description}}</p>
@@ -46,11 +58,16 @@
                               <div class="rightContainer">
                                              <div class="teamNotifyMessage">The post author and voters will get an&nbsp;email.</div>
                                              <button type="submit" class="btn"><span class="label">Submit</span><span class="loader"> </span></button></div></div></form>
+                                             
         </div>
          <div class="activity-heading">
                 Comment Activity
             </div>
        </div>
+       
+       </div>
+        <div class="progress-status {{post.status}}">
+           {{post.status}}
        </div>
        
         </div>    

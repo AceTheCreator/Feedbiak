@@ -346,11 +346,17 @@ font-size: 14px;
 .status img{
     width: 20px;
 }
-.delete-update{
+.update{
     margin-top: 20px;
 }
-.delete-update button{
+.update button{
     float: right;
+}
+.btn.delete{
+    background: transparent;
+}
+.edit-post{
+    margin-top: 30px;
 }
 .commentComposer{
     display: flex;
@@ -440,6 +446,31 @@ font-size: 14px;
     font-size: 12px;
     font-weight: 700;
     color: rgb(82, 82, 82);
+}
+.progress-status{
+    padding: 3px 6px;
+    border-radius: 20px;
+    font-size: 13px;
+    color: white;
+    font-weight: bold;
+}
+.progress-status.Completed{
+    background: seagreen;
+}
+.progress-status.Planned{
+    background: red;
+}
+.progress-status.Closed{
+    background: rgb(172, 172, 172);
+}
+.progress-status.Open{
+    background: rosybrown;
+}
+.progress-status.Review{
+    background: rgb(235, 215, 34);
+}
+.progress-status.In{
+    background: steelblue;
 }
 .comments-activity{
     margin-top: 20px;

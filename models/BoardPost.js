@@ -14,6 +14,7 @@ const BoardPost = Schema({
   },
   status: {
     type: String,
+    default: 'Open',
   },
   date: { type: Date, default: Date.now },
   upvote: {

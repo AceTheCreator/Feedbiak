@@ -13,55 +13,64 @@ const User = mongoose.model('users');
 
 // Get Post
 let postsId;
-// router.get('/board-post/:id', (req, res) => {
-//   postsId = req.params.id;
-//   Post.findOne({
-//     _id: req.params.id,
-//   })
-//     .then((post) => {
-//       res.render('routes/post.handlebars', {
-//         post,
-//       });
-//     });
-// });
 router.get('/board-post/:id', (req, res) => {
   postsId = req.params.id;
   Post.findOne({
     _id: req.params.id,
-  }, (error, post) => {
-    if (post) {
-      Comment.find({
-        postId: req.params.id,
-      })
-        .sort({ date: 'desc' })
-        .then((comment) => {
-          res.render('routes/post.handlebars', {
-            comment,
-          });
-        });
-    } else {
-      console.log('Something went wrong');
-    }
-  });
+  })
+    .then((post) => {
+      res.render('routes/post.handlebars', {
+        post,
+      });
+    });
 });
+// router.get('/board-post/:id', (req, res) => {
+//   postsId = req.params.id;
+//   Post.findOne({
+//     _id: req.params.id,
+//   }, (error, post) => {
+//     if (post) {
+//       Comment.find({
+//         postId: req.params.id,
+//       })
+//         .sort({ date: 'desc' })
+//         .then((comment) => {
+//           res.render('routes/post.handlebars', {
+//             comment,
+//           });
+//         });
+//     } else {
+//       console.log('Something went wrong');
+//     }
+//   });
+// });
 
-// Set Board Status
+// Set Board Post Status
 router.put('/post/edit/:id', (req, res) => {
   Post.findOne({
     _id: req.params.id,
   })
     .then((post) => {
     // new values
-      post.boardStatus = 'Completed';
+      post.status = req.body.progress;
       post.save()
         .then((post) => {
-          res.redirect('/admin');
+          res.redirect(`/board-post/${postsId}`);
         });
     });
   console.log('HELLO');
 });
 
-
+// Delete Board Post
+router.delete('/post/:id', (req, res) => {
+  Post.remove({
+    _id: req.params.id,
+  })
+    .then((post) => {
+      req.flash('success_msg', 'Post successfully deleted');
+      res.redirect('/admin');
+    });
+});
 // Put Comment
 let commentuser;
 router.post('/post-comment', (req, res) => {
