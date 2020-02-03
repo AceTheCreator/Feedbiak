@@ -68,7 +68,7 @@ app.get('/', redirectIfAuth, (req, res) => {
   res.render('index.handlebars');
 });
 // Home Route
-app.get('/admin', auth, (req, res, next) => {
+app.get('/admin', (req, res, next) => {
   let admin;
   if (req.session.userId) {
     admin = 'T';
@@ -82,7 +82,14 @@ app.get('/admin', auth, (req, res, next) => {
         });
       });
   }
-  res.redirect('/login');
+  boardSchmea.find({ boardOwner: req.session.userId })
+    .sort({ date: 'desc' })
+  // eslint-disable-next-line no-shadow
+    .then((boards) => {
+      res.render('routes/admin', {
+        boards,
+      });
+    });
   next();
 });
 // User Routes

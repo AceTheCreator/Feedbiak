@@ -13,8 +13,19 @@ require('../models/BoardPost');
 const Board = mongoose.model('boards');
 const Post = mongoose.model('boardPost');
 
+// Global Variables
+let postidentifier;
+let admin;
+
 router.get('/create-board', Auth, (req, res) => {
-  res.render('routes/createBoard.handlebars');
+  if (req.session.userId) {
+    admin = 'T';
+    res.render('routes/createBoard.handlebars', {
+      admin,
+    });
+  } else {
+    res.render('routes/createBoard.handlebars');
+  }
 });
 
 // Create board
@@ -48,9 +59,19 @@ router.post('/boards', Auth, (req, res) => {
 });
 
 // Get board route
-let postidentifier;
 router.get('/board/:id', Auth, async (req, res) => {
   postidentifier = req.params.id;
+  if (req.session.userId) {
+    admin = 'T';
+    return Post.find({ boardId: req.params.id })
+      .sort({ date: 'desc' })
+      .then((posts) => {
+        res.render('routes/board.handlebars', {
+          posts,
+          admin,
+        });
+      });
+  }
   Post.find({ boardId: req.params.id })
     .sort({ date: 'desc' })
     .then((posts) => {

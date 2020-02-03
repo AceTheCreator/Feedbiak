@@ -1,5 +1,7 @@
+
 <div class="admin-view">
     <div class="container">
+      {{#if admin}}
         <div class="alert alert-secondary alert-dismissible fade show" role="alert">
 You can invite unlimited teammates or users to give you feedback <span style="float: right;"><a href="#">send link</a ></span>
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -16,5 +18,17 @@ You can invite unlimited teammates or users to give you feedback <span style="fl
       {{else}} Sorry you havent created any board yet
       {{/each}}
     </div>
+    {{else}}
+    <div class="boards">
+    <h4>Boards</h4>
+</div>
+ <div class="board-list">
+      {{#each boards}}
+     <a href='/board/{{id}}' class="board-item">{{boardName}}
+     </a>
+      {{else}} Sorry no board has been created yet
+      {{/each}}
+    </div>
+    {{/if}}
     </div>
 </div>

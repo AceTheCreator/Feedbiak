@@ -13,9 +13,22 @@ const User = mongoose.model('users');
 
 // Get Post
 let postsId;
-router.get('/board-post/:id', (req, res) => {
+let admin;
+router.get('/board-post/:id', (req, res, next) => {
   postsId = req.params.id;
-  Post.findOne({
+  if (req.session.userId) {
+    admin = 'T';
+    return Post.findOne({
+      _id: req.params.id,
+    })
+      .then((post) => {
+        res.render('routes/post.handlebars', {
+          post,
+          admin,
+        });
+      });
+  }
+  return Post.findOne({
     _id: req.params.id,
   })
     .then((post) => {
@@ -23,6 +36,8 @@ router.get('/board-post/:id', (req, res) => {
         post,
       });
     });
+
+  next();
 });
 // router.get('/board-post/:id', (req, res) => {
 //   postsId = req.params.id;
