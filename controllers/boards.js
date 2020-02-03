@@ -59,7 +59,7 @@ router.post('/boards', Auth, (req, res) => {
 });
 
 // Get board route
-router.get('/board/:id', Auth, async (req, res) => {
+router.get('/board/:id', async (req, res) => {
   postidentifier = req.params.id;
   if (req.session.userId) {
     admin = 'T';

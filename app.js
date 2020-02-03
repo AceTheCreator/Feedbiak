@@ -67,8 +67,8 @@ const redirectIfAuth = require('./middlewares/redirectIfAuth');
 app.get('/', redirectIfAuth, (req, res) => {
   res.render('index.handlebars');
 });
-// Home Route
-app.get('/admin', (req, res, next) => {
+// Admin Home Route
+app.get('/admin', auth, (req, res, next) => {
   let admin;
   if (req.session.userId) {
     admin = 'T';
@@ -82,15 +82,20 @@ app.get('/admin', (req, res, next) => {
         });
       });
   }
-  boardSchmea.find({ boardOwner: req.session.userId })
+  res.redirect('/login');
+  next();
+});
+// Guest Home Route
+app.get('/organisation/:id', (req, res) => {
+  boardSchmea.find({ boardOwner: req.params.id })
     .sort({ date: 'desc' })
   // eslint-disable-next-line no-shadow
     .then((boards) => {
-      res.render('routes/admin', {
+      res.render('routes/guest', {
         boards,
       });
+      console.log(boards);
     });
-  next();
 });
 // User Routes
 app.use(users);
