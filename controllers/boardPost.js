@@ -36,30 +36,23 @@ router.get('/board-post/:id', (req, res, next) => {
         post,
       });
     });
-
-  next();
 });
-// router.get('/board-post/:id', (req, res) => {
-//   postsId = req.params.id;
-//   Post.findOne({
-//     _id: req.params.id,
-//   }, (error, post) => {
-//     if (post) {
-//       Comment.find({
-//         postId: req.params.id,
-//       })
-//         .sort({ date: 'desc' })
-//         .then((comment) => {
-//           res.render('routes/post.handlebars', {
-//             comment,
-//           });
-//         });
-//     } else {
-//       console.log('Something went wrong');
-//     }
-//   });
-// });
-
+// Board Post Votes
+router.put('/vote', (req, res) => {
+  Post.findOne({ _id: postsId })
+    .then((post) => {
+      // add a vote
+      for (let i = 0; i <= post.upvote; i++) {
+        if (post.upvote >= 0) {
+          post.upvote = i++;
+        }
+      }
+      post.save()
+        .then((post) => {
+          res.redirect(`/board-post/${postsId}`);
+        });
+    });
+});
 // Set Board Post Status
 router.put('/post/edit/:id', (req, res) => {
   Post.findOne({

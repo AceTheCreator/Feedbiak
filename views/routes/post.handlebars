@@ -34,11 +34,12 @@
     </div>
     <div class="right-ui-panel">
         <div class="board-post-list">
-             <div class="upvote">
+            <form method="POST" class="upvote" action="/vote?_method=PUT">
+             <button name="_method" class="upvote">
         <i class="fas fa-caret-up"></i>
-        {{upvote.default}}
-        <div class="count">0</div>
-      </div>
+        <div class="count">{{post.upvote}}</div>
+      </button>
+      </form>
       <div class="board-post-link">
           
        <div class="body">

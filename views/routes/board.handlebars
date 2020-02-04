@@ -25,11 +25,12 @@
     <div class="right-ui-panel">
       {{#each posts}}
     <div class="board-post-list">
-        <div class="upvote">
+            <form class="upvote" action="">
+             <button class="upvote">
         <i class="fas fa-caret-up"></i>
-        {{upvote.default}}
-        <div>0</div>
-      </div>
+        <div class="count">{{upvote}}</div>
+      </button>
+      </form>
       <a class="board-post-link" href="/board-post/{{id}}">
        <div class="body">
          <h6 class="post-title">{{title}}</h6>

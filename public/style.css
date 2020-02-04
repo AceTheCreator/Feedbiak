@@ -306,6 +306,10 @@ font-size: 14px;
     font-size: 25px;
     color: teal;
 }
+.upvote button{
+    background: transparent;
+    border:none
+}
 .upvote .count{
     margin-left: 2px;
 }
