@@ -21,7 +21,7 @@ const BoardPost = Schema({
     type: Number,
     default: 0,
   },
-  comments: [{ type: Schema.Types.ObjectId, ref: 'Comments' }],
+  comments: [{ type: Schema.Types.ObjectId, ref: 'comment' }],
 });
 const CommentSchema = Schema({
   postId: { type: String },

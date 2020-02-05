@@ -22,6 +22,7 @@ router.get('/board-post/:id', (req, res, next) => {
       _id: req.params.id,
     })
       .then((post) => {
+        console.log(post.comments.username);
         res.render('routes/post.handlebars', {
           post,
           admin,
@@ -37,16 +38,26 @@ router.get('/board-post/:id', (req, res, next) => {
       });
     });
 });
+// Edit Board Post
+router.put('/board-post/edit/:id', (req, res) => {
+  Post.findOne({
+    _id: req.params.id,
+  })
+    .then((post) => {
+    // set new values
+      post.title = req.body.title;
+      post.description = req.body.description;
+      post.save()
+        .then(() => {
+          res.redirect(`/board-post/${postsId}`);
+        });
+    });
+});
 // Board Post Votes
 router.put('/vote', (req, res) => {
   Post.findOne({ _id: postsId })
     .then((post) => {
       // add a vote
-      for (let i = 0; i <= post.upvote; i++) {
-        if (post.upvote >= 0) {
-          post.upvote = i++;
-        }
-      }
       post.save()
         .then((post) => {
           res.redirect(`/board-post/${postsId}`);
