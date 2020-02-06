@@ -1,11 +1,8 @@
-
 const express = require('express');
-
 const router = express.Router();
-
 const sgMail = require('@sendgrid/mail');
 
-const SENDGRID_API_KEY = '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';
+const { SENDGRID_API_KEY } = process.env;
 sgMail.setApiKey(SENDGRID_API_KEY);
 
 const msg = {
@@ -16,3 +13,5 @@ const msg = {
   html: '<strong>and easy to do anywhere, even with Node.js</strong>',
 };
 sgMail.send(msg);
+
+module.exports = router;
