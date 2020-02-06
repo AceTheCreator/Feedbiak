@@ -27,6 +27,7 @@ app.engine('handlebars', exphbs({
 }));
 // Database Model
 const boardSchmea = require('./models/Board');
+const boardPost = require('./models/BoardPost');
 
 app.set('view engine', 'handlebars');
 // set static folder
@@ -70,15 +71,35 @@ app.get('/', redirectIfAuth, (req, res) => {
 // Admin Home Route
 app.get('/admin', auth, (req, res, next) => {
   let admin;
+  const planned = [];
+  const inProgress = [];
+  const completed = [];
   if (req.session.userId) {
     admin = 'T';
     return boardSchmea.find({ boardOwner: req.session.userId })
       .sort({ date: 'desc' })
       // eslint-disable-next-line no-shadow
       .then((boards) => {
-        res.render('routes/admin', {
-          boards,
-          admin,
+        boardPost.find({
+          boardOwner: req.session.userId,
+        }).then((status) => {
+          for (let i = 0; i < status.length; i++) {
+            if (status[i].status === 'Planned') {
+              planned.push(status[i]);
+            } else if (status[i].status === 'In Progress') {
+              inProgress.push(status[i]);
+            } else if (status[i].status === 'Completed') {
+              completed.push(status[i]);
+            }
+          }
+          console.log(completed);
+          res.render('routes/admin', {
+            boards,
+            admin,
+            planned,
+            inProgress,
+            completed,
+          });
         });
       });
   }

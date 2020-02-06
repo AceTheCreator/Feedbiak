@@ -143,17 +143,22 @@ h3{
 .login-img img{
     width: 100%;
 }
+/* Message */
+.alert{
+    margin-top: 30px;
+}
 /* Boards page */
 .boards{
     margin-top: 5%;
 }
-.boards h4{
+.boards h6{
     color: #696969;
+    font-weight: bold;
 }
 .boards .btn{
     font-size: 12px;
     font-weight: bold;
-    padding: 10px;
+    padding: 5px;
 }
 .board-list{
     display: flex;
@@ -162,7 +167,6 @@ h3{
     margin-top: 2%;
 }
 .board-item{
-display: flex;
 -webkit-box-orient: vertical;
 -webkit-box-direction: normal;
 flex-direction: column;
@@ -179,6 +183,38 @@ word-wrap: break-word;
 word-break: break-word;
 font-weight: bold;
 font-size: 14px;
+}
+.roadmap{
+    margin-top: 5%;
+}
+.roadmap h6{
+    font-weight: bold;
+    color: #696969;
+}
+.roadmap-header{
+    display: flex;
+    padding-bottom: 10px;
+}
+.dot{
+    width: 8px;
+    height: 8px;
+    margin: 0 10px 2px 0;
+    margin-top: 5px;
+    border-radius: 100%;
+}
+.dot.planned{
+    background: red;
+}
+.dot.in-progress{
+    background: rebeccapurple;
+}
+.dot.complete{
+    background: seagreen;
+}
+.roadmap-content{
+    font-weight: 500;
+    display: flex;
+    flex-direction: row;
 }
 /* Create Board */
 .create-board{

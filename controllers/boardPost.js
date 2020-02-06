@@ -22,11 +22,14 @@ router.get('/board-post/:id', (req, res, next) => {
       _id: req.params.id,
     })
       .then((post) => {
-        console.log(post.comments.username);
-        res.render('routes/post.handlebars', {
-          post,
-          admin,
-        });
+        Comment.find({ postId: req.params.id })
+          .then((comment) => {
+            res.render('routes/post.handlebars', {
+              post,
+              admin,
+              comment,
+            });
+          });
       });
   }
   return Post.findOne({

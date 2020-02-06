@@ -7,7 +7,7 @@ You can invite unlimited teammates or users to give you feedback <span style="fl
   </button>
 </div>
 <div class="boards">
-    <h4>Boards <span class="btn btn-primary" style="float: right;"><a href="/create-board">CREATE BOARD</a></span></h4>
+    <h6>Boards <span class="btn btn-primary" style="float: right;"><a href="/create-board">CREATE BOARD</a></span></h6>
 </div>
     <div class="board-list">
       {{#each boards}}
@@ -15,6 +15,56 @@ You can invite unlimited teammates or users to give you feedback <span style="fl
      </a>
       {{else}} Sorry you havent created any board yet
       {{/each}}
+    </div>
+    <div class="roadmap">
+    <h6>Roadmap</h6>
+    </div>
+    <div class="board-list">
+      <div class="board-item">
+        <div class="roadmap-header">
+          <div class="dot planned"></div>
+          <div> Planned</div>
+        </div>
+        <div class="roadmap-content">
+         <div class="aaa">
+            {{#each planned}}
+       <a href="/board-post/{{id}}"> {{title}}</a> <br>
+          {{else}}
+          Stay tuned !
+          {{/each}}
+         </div>
+        </div>
+      </div>
+       <div class="board-item">
+           <div class="roadmap-header">
+          <div class="dot in-progress"></div>
+          <div> In Progress</div>
+        </div>
+        <div class="roadmap-content">
+        <div class="aaa">
+            {{#each inProgress}}
+       <a href="/board-post/{{id}}"> {{title}}</a> <br>
+          {{else}}
+          Stay tuned !
+          {{/each}}
+        </div>
+        </div>
+      </div>
+       <div class="board-item">
+           <div class="roadmap-header">
+          <div class="dot complete"></div>
+          <div> Completed</div>
+        </div>
+        <div class="roadmap-content">
+        <div class="aaa">
+            {{#each completed}}
+         <a href="/board-post/{{id}}"> {{title}}</a> <br>
+          {{else}}
+          Stay tuned !
+          {{/each}}
+        </div>
+        </div>
+      </div>
     </div>
     </div>
 </div>

@@ -6,6 +6,9 @@ const BoardPost = Schema({
   boardId: {
     type: String,
   },
+  boardOwner: {
+    type: String,
+  },
   title: {
     type: String,
   },

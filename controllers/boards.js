@@ -84,6 +84,7 @@ router.get('/board/:id', async (req, res) => {
 // Create board post
 router.post('/create-post', Auth, async (req, res) => {
   const newPost = new Post({
+    boardOwner: req.session.userId,
     boardId: postidentifier,
     title: req.body.postTitle,
     description: req.body.postDescription,
