@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 // Required Modules
+require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -19,7 +20,11 @@ app.use(bodyParser.urlencoded({
   extended: true,
 }));
 // Mongodb connection
-mongoose.connect('mongodb://localhost:27017/feedbiak', { useMongoClient: true });
+// const hostname = process.env.HOST;
+// const port = process.env.PORT;
+// const db = process.env.DB;
+const dbUrl = process.env.DATABASE_URL;
+mongoose.connect(dbUrl);
 // set view engine
 app.set('views', path.join(__dirname, 'views'));
 app.engine('handlebars', exphbs({
