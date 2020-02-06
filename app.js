@@ -23,8 +23,17 @@ app.use(bodyParser.urlencoded({
 // const hostname = process.env.HOST;
 // const port = process.env.PORT;
 // const db = process.env.DB;
-const dbUrl = process.env.DATABASE_URL;
-mongoose.connect(dbUrl);
+const dbURI = 'mongodb+srv://devlopergene:xtarkhyd@cluster0-2ebjr.mongodb.net/test?retryWrites=true&w=majority';
+
+mongoose.connect(dbURI || 'mongodb://localhost:27017/feedbiak', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+}).catch((err) => {
+  console.log(err);
+});
+mongoose.connection.on('connected', () => {
+  console.log('Mongodb connection successful');
+});
 // set view engine
 app.set('views', path.join(__dirname, 'views'));
 app.engine('handlebars', exphbs({
