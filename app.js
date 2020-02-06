@@ -93,7 +93,6 @@ app.get('/admin', auth, (req, res, next) => {
               completed.push(status[i]);
             }
           }
-          console.log(completed);
           res.render('routes/admin', {
             boards,
             admin,

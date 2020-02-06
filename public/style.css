@@ -81,6 +81,38 @@ h3{
     width: 100%;
 }
 
+@media screen and (max-width:992px){
+    .header{
+        flex-direction: column;
+    }
+    .home-content{
+        width: 100%;
+        height: 50vh;
+    }
+    .home-content h1{
+        font-size: 30px;
+    }
+    .home-content h1, .text-summary, .try-btn, .social-handles{
+        margin-left: 0%;
+        line-height: 1.2;
+        color: #373763;
+    }
+    .home-content .text-summary{
+        line-height: 1.8;
+    }
+    .home-img{
+        width: 100%;
+        height: 50vh;
+    }
+    .social-handles img{
+        background: white;
+        width: 35px;
+        padding: 8px;
+        border-radius: 0px;
+        margin-left: 10px;
+    }
+}
+
 /* Sign up */
 .signup{
     flex-wrap: wrap;
@@ -116,6 +148,18 @@ h3{
     margin-top: 10px;
 }
 
+@media screen and (max-width:992px){
+    .signup{
+        flex-direction: row;
+    }
+    .signup-img{
+        width: 100%;
+    }
+    .signup-form{
+        margin-left: 0%;
+    }
+}
+
 /* Login */
 .login{
     flex-wrap: wrap;
@@ -143,9 +187,28 @@ h3{
 .login-img img{
     width: 100%;
 }
+@media screen and (max-width:992px){
+    .login{
+        flex-direction: row;
+    }
+    .login-form{
+        margin-left: 0%;
+        height:50vh;
+    }
+    .login-img{
+        width: 100%;
+        margin-left: 0%;
+    }
+}
 /* Message */
 .alert{
     margin-top: 30px;
+}
+@media screen and (max-width:992px){
+    .alert{
+        font-size: 12px;
+        font-weight: bold;
+    }
 }
 /* Boards page */
 .boards{
@@ -166,9 +229,10 @@ h3{
     align-content: flex-start;
     margin-top: 2%;
 }
+.board-list-grid{
+    display: flex;
+}
 .board-item{
--webkit-box-orient: vertical;
--webkit-box-direction: normal;
 flex-direction: column;
 min-width: 31.3%;
 max-width: 31.3%;
@@ -216,6 +280,21 @@ font-size: 14px;
     display: flex;
     flex-direction: row;
 }
+@media screen and (max-width:992px){
+    .board-list{
+     flex-direction: column;
+      flex-wrap: nowrap;
+      align-content: center;
+      width: 100%;
+      margin-top: 5%;
+    }
+    .board-item{
+        margin-top: 3%;
+        min-width: 100%;
+        max-width: 100%;
+    }
+  
+}
 /* Create Board */
 .create-board{
     text-align: center;
@@ -238,6 +317,18 @@ font-size: 14px;
 }
 .create-board .card form button{
     float: right;
+}
+@media screen and (max-width:992px){
+    .create-board{
+        padding-top: 50px;
+    }
+    .create-board .card{
+        width: 100%;
+        margin-left: 0%;
+    }
+    .create-board .card form{
+        padding: 30px;
+    }
 }
 /* Board */
 .board{
@@ -376,6 +467,20 @@ font-size: 14px;
 }
 .post-description{
     font-size: 14px;
+}
+@media screen and (max-width:992px){
+    .board{
+        flex-direction: column;
+    }
+    .left-ui-panel{
+        width: 100%;
+    }
+    .right-ui-panel{
+        margin-left: 0px;
+    }
+    .board-post-form textarea{
+        width: 150%;
+    }
 }
 
 /* Post */
@@ -539,6 +644,23 @@ margin-top: 10px;
     margin-left: 10px;
 }
 
+@media screen and (max-width:992px){
+    .board-post-list{
+        margin-left: -20px;
+    }
+    .board-post-link{
+        flex-direction: column;
+    }
+    .commentComposer .composerForm{
+        width: 80%;
+    }
+    .progress-status{
+        margin-top: 20px;
+    }
+        .comment-func{
+            font-size: 10px;
+        }
+}
 /* Email invitation */
 .invite{
     margin-top: 3%;
@@ -547,3 +669,4 @@ margin-top: 10px;
 .invite-form{
     text-align: left;
 }
+
