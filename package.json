@@ -12,10 +12,12 @@
     "fix-js": "eslint-auto-fix"
   },
   "dependencies": {
+    "@sendgrid/mail": "^6.5.2",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "connect-flash": "^0.1.1",
     "connect-mongo": "^3.2.0",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-handlebars": "^3.1.0",
     "express-session": "^1.17.0",
@@ -23,10 +25,10 @@
     "method-override": "^3.0.0",
     "mongoose": "^4.13.20",
     "morgan": "^1.9.1",
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.2",
+    "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {
-    "dotenv": "^8.2.0",
     "eslint": "^6.8.0",
     "eslint-auto-fix": "^1.0.1",
     "eslint-config-airbnb-base": "^14.0.0",

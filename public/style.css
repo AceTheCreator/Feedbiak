@@ -538,3 +538,12 @@ margin-top: 10px;
 .comment-func div{
     margin-left: 10px;
 }
+
+/* Email invitation */
+.invite{
+    margin-top: 3%;
+    text-align: center;
+}
+.invite-form{
+    text-align: left;
+}

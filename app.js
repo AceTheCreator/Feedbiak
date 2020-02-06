@@ -60,6 +60,7 @@ app.use((req, res, next) => {
 const users = require('./controllers/users');
 const boards = require('./controllers/boards');
 const posts = require('./controllers/boardPost');
+// const invite = require('./controllers/email');
 // Route Middlewares
 const auth = require('./middlewares/auth');
 const redirectIfAuth = require('./middlewares/redirectIfAuth');
@@ -124,6 +125,8 @@ app.use(users);
 app.use(boards);
 // Board Post Routes;
 app.use(posts);
+// Email ivitation routes
+// app.use(invite);
 
 const PORT = 5000;
 
