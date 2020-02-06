@@ -20,12 +20,11 @@ app.use(bodyParser.urlencoded({
   extended: true,
 }));
 // Mongodb connection
-// const hostname = process.env.HOST;
-// const port = process.env.PORT;
-// const db = process.env.DB;
-const dbURI = 'mongodb+srv://devlopergene:xtarkhyd@cluster0-2ebjr.mongodb.net/test?retryWrites=true&w=majority';
+const dbUser = process.env.dbUsername;
+const { dbPassword } = process.env;
+const dbURI = `mongodb+srv://${dbUser}:${dbPassword}@cluster0-2ebjr.mongodb.net/test?retryWrites=true&w=majority`;
 
-mongoose.connect(dbURI || 'mongodb://localhost:27017/feedbiak', {
+mongoose.connect(dbURI || `mongodb://localhost:${process.env.DBPORT}/feedbiak`, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 }).catch((err) => {
