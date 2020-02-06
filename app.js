@@ -141,7 +141,7 @@ app.use(posts);
 // Email ivitation routes
 // app.use(invite);
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(`app now listening to port ${PORT}`);
