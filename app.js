@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({
 // Mongodb connection
 const dbUser = process.env.dbUsername;
 const { dbPassword } = process.env;
-const dbURI = `mongodb+srv://${dbUser}:${dbPassword}@cluster0-2ebjr.mongodb.net/test?retryWrites=true&w=majority`;
+const dbURI = `mongodb+srv://${dbUser}:${dbPassword}@cluster0-2ebjr.mongodb.net/feedbiak?retryWrites=true&w=majority`;
 
 mongoose.connect(dbURI || `mongodb://localhost:${process.env.DBPORT}/feedbiak`, {
   useNewUrlParser: true,
@@ -73,7 +73,8 @@ app.use((req, res, next) => {
 const users = require('./controllers/users');
 const boards = require('./controllers/boards');
 const posts = require('./controllers/boardPost');
-// const invite = require('./controllers/email');
+const invite = require('./controllers/email');
+const guest = require('./controllers/guestUser');
 // Route Middlewares
 const auth = require('./middlewares/auth');
 const redirectIfAuth = require('./middlewares/redirectIfAuth');
@@ -82,20 +83,22 @@ const redirectIfAuth = require('./middlewares/redirectIfAuth');
 app.get('/', redirectIfAuth, (req, res) => {
   res.render('index.handlebars');
 });
+
 // Admin Home Route
-app.get('/admin', auth, (req, res, next) => {
+
+app.get('/admin/:id', auth, (req, res, next) => {
   let admin;
   const planned = [];
   const inProgress = [];
   const completed = [];
-  if (req.session.userId) {
+  if (req.session.guestId || req.session.userId) {
     admin = 'T';
-    return boardSchmea.find({ boardOwner: req.session.userId })
+    return boardSchmea.find({ boardOwner: req.session.guestId || req.session.userId })
       .sort({ date: 'desc' })
       // eslint-disable-next-line no-shadow
       .then((boards) => {
         boardPost.find({
-          boardOwner: req.session.userId,
+          boardOwner: req.session.guestId || req.session.userId,
         }).then((status) => {
           for (let i = 0; i < status.length; i++) {
             if (status[i].status === 'Planned') {
@@ -119,18 +122,6 @@ app.get('/admin', auth, (req, res, next) => {
   res.redirect('/login');
   next();
 });
-// Guest Home Route
-app.get('/organisation/:id', (req, res) => {
-  boardSchmea.find({ boardOwner: req.params.id })
-    .sort({ date: 'desc' })
-  // eslint-disable-next-line no-shadow
-    .then((boards) => {
-      res.render('routes/guest', {
-        boards,
-      });
-      console.log(boards);
-    });
-});
 // User Routes
 app.use(users);
 // Boards Routes
@@ -138,8 +129,9 @@ app.use(boards);
 // Board Post Routes;
 app.use(posts);
 // Email ivitation routes
-// app.use(invite);
-
+app.use(invite);
+// Guest Routes
+app.use(guest);
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {

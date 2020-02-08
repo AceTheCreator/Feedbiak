@@ -12,13 +12,14 @@ require('../models/BoardPost');
 
 const Board = mongoose.model('boards');
 const Post = mongoose.model('boardPost');
+const Comment = mongoose.model('comment');
 
 // Global Variables
 let postidentifier;
 let admin;
 
 router.get('/create-board', Auth, (req, res) => {
-  if (req.session.userId) {
+  if (req.session.userId || req.session.guestId) {
     admin = 'T';
     res.render('routes/createBoard.handlebars', {
       admin,
@@ -42,14 +43,14 @@ router.post('/boards', Auth, (req, res) => {
         res.redirect('/create-board');
       } else {
         const newBoard = new Board({
-          boardOwner: req.session.userId,
+          boardOwner: req.session.userId || req.session.guestId,
           boardName: req.body.boardName,
           boardUrl: req.body.boardUrl,
         });
         newBoard.save()
           // eslint-disable-next-line no-unused-vars
           .then((board) => {
-            res.redirect('/admin');
+            res.redirect(`/admin/${req.session.userId || req.session.guestId}`);
           })
           .catch((err) => {
             console.log(err);
@@ -61,7 +62,7 @@ router.post('/boards', Auth, (req, res) => {
 // Get board route
 router.get('/board/:id', async (req, res) => {
   postidentifier = req.params.id;
-  if (req.session.userId) {
+  if (req.session.userId || req.session.guestId) {
     admin = 'T';
     return Post.find({ boardId: req.params.id })
       .sort({ date: 'desc' })
@@ -72,26 +73,18 @@ router.get('/board/:id', async (req, res) => {
         });
       });
   }
-  Post.find({ boardId: req.params.id })
-    .sort({ date: 'desc' })
-    .then((posts) => {
-      res.render('routes/board.handlebars', {
-        posts,
-      });
-    });
 });
 
 // Create board post
 router.post('/create-post', Auth, async (req, res) => {
   const newPost = new Post({
-    boardOwner: req.session.userId,
+    boardOwner: req.session.userId || req.session.guestId,
     boardId: postidentifier,
     title: req.body.postTitle,
     description: req.body.postDescription,
   });
   newPost.save()
     .then((post) => {
-      console.log(req.session.boardId);
       res.redirect(`/board/${postidentifier}`);
     })
     .catch((err) => {

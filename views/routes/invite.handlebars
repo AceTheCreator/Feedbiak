@@ -1,8 +1,13 @@
 <div class="invite">
     <div class="container">
-        <div class="form invite-form">
+       <div class="invite-card">
+            <form action="/send-invite" method="POST" class="form invite-form">
             <label for="email">Invite people via email:</label><br>
-            <input type="email" placeholder="email">
-        </div>
+            <div class="form-content">
+               <div class="emailBox"><div class="autoResizeTextarea" style=""><span class="inputContainer"><textarea name="emailAddresses" placeholder="Email addresses, separated by commas or spaces" rows="1"></textarea></span></div></div>
+                <button class="email-button btn">Send invites</button>
+            </div>
+        </form>
+       </div>
     </div>
 </div>

@@ -1,22 +1,25 @@
 const express = require('express');
 
 const mongoose = require('mongoose');
+const moment = require('moment');
 
 const router = express.Router();
 // Board Post model
 require('../models/BoardPost');
 require('../models/User');
+require('../models/GuestUser');
 
 const Post = mongoose.model('boardPost');
 const Comment = mongoose.model('comment');
 const User = mongoose.model('users');
+const Guest = mongoose.model('guests');
 
 // Get Post
 let postsId;
 let admin;
 router.get('/board-post/:id', (req, res, next) => {
   postsId = req.params.id;
-  if (req.session.userId) {
+  if (req.session.userId || req.session.guestId) {
     admin = 'T';
     return Post.findOne({
       _id: req.params.id,
@@ -96,18 +99,22 @@ router.delete('/post/:id', (req, res) => {
 // Put Comment
 let commentuser;
 router.post('/post-comment', (req, res) => {
+  const getDate = moment().format('MMM Do YY');
   User.findOne({
     _id: req.session.userId,
   })
     .then((user) => {
-      commentuser = user.fullname;
-      console.log(commentuser);
+      Guest.findOne({
+        _id: req.session.guestId,
+      }).then((guest) => {
+        commentuser = user.fullname || guest.fullname;
+      });
     });
   const newComment = new Comment({
     postId: postsId,
     username: commentuser,
     text: req.body.commentText,
-    date: Date.now(),
+    date: getDate,
     avater: 'https://www.shareicon.net/data/512x512/2016/05/24/770139_man_512x512.png',
   });
   newComment.save()

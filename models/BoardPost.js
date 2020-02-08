@@ -24,13 +24,17 @@ const BoardPost = Schema({
     type: Number,
     default: 0,
   },
+  commentCount: {
+    type: Number,
+    default: 0,
+  },
   comments: [{ type: Schema.Types.ObjectId, ref: 'comment' }],
 });
 const CommentSchema = Schema({
   postId: { type: String },
   username: { type: String },
   text: { type: String },
-  date: { type: Date },
+  date: { type: String },
   avater: { type: String },
 });
 

@@ -4,7 +4,7 @@ require('../models/User');
 
 const User = mongoose.model('users');
 module.exports = (req, res, next) => {
-  User.findById(req.session.userId, (error, user) => {
+  User.findById(req.session.guestId || req.session.userId, (error, user) => {
     if (error || !user) {
       console.log('OOops weve got an error');
       return res.redirect('/');

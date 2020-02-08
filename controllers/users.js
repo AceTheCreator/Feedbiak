@@ -39,7 +39,6 @@ router.post('/users/login', (req, res) => {
       bcrypt.compare(password, user.password, (error, same) => {
         if (same) {
           req.session.userId = user.id;
-          req.session.organization = user.organization;
           res.redirect(`/admin/${req.session.userId}`);
         } else {
           req.flash('error_msg', 'OOoops you entered a wrong password');
