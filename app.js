@@ -91,7 +91,7 @@ app.get('/', redirectIfAuth, (req, res) => {
 
 // Admin Home Route
 
-app.get('/admin/:id', auth, (req, res, next) => {
+app.get('/admin', auth, (req, res, next) => {
   let admin;
   const planned = [];
   const inProgress = [];

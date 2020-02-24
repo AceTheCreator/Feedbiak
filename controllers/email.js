@@ -13,8 +13,7 @@ router.get('/send-invitation', (req, res) => {
 });
 
 router.post('/send-invite', (req, res) => {
-  const SENDGRID_API_KEY = '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';
-  sgMail.setApiKey(SENDGRID_API_KEY);
+  sgMail.setApiKey(process.env.SENDGRIDAPIKEY);
   User.findOne({ _id: req.session.userId })
     .then((user) => {
       const msg = {
