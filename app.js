@@ -24,7 +24,7 @@ const dbUser = process.env.dbUsername;
 const { dbPassword } = process.env;
 const dbURI = `mongodb+srv://${dbUser}:${dbPassword}@cluster0-2ebjr.mongodb.net/feedbiak?retryWrites=true&w=majority`;
 
-mongoose.connect(dbURI || `mongodb://localhost:${process.env.DBPORT}/feedbiak`, {
+mongoose.connect(`mongodb://localhost:${process.env.DBPORT}/feedbiak`, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 }).catch((err) => {
