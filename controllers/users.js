@@ -46,6 +46,7 @@ router.post('/users/login', (req, res) => {
         }
       });
     } else {
+      console.log('wrong credentials');
       req.flash('error_msg', 'email or password not correct');
       res.redirect('/login');
     }

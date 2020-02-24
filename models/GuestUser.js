@@ -4,19 +4,14 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const guestSchema = Schema({
+  providerId: {
+    type: String,
+  },
   companyId: {
     type: String,
     require: true,
   },
   fullname: {
-    type: String,
-    require: true,
-  },
-  email: {
-    type: String,
-    require: true,
-  },
-  password: {
     type: String,
     require: true,
   },

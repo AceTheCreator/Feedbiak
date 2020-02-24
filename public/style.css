@@ -18,11 +18,15 @@ body,html{
     color: white;
     text-decoration: none;
 }
+
 a{
 text-decoration: none;
 color: inherit;
 letter-spacing: .01em;
 word-spacing: .02em;
+}
+a:hover{
+    color: black;
 }
 h3{
     font-weight: bold;
@@ -734,9 +738,45 @@ margin-top: 10px;
 
 /* Guest auth route */
 .guest-form-container{
-    margin-top: -200px;
-    padding: 300px;
+   text-align: center;
+   margin-top: 40px;
 }
-.guest-form-container form{
-    margin-top: 50px;
+.guest-form-container a{
+    text-decoration: none;
+}
+.auth-container{
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+margin-top: 50px;
+}
+.auth-buttons{
+    margin: 0px 0 15px;
+    display: flex;
+    justify-content: space-between;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    flex-direction: row;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 300px;
+}
+.auth-container img{
+    width: 20px;
+    padding: -20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 15px;
+}
+.auth-buttons .imageContainer{
+    border-right: 1px solid #ddd;
+}
+.auth-buttons .cta{
+    padding: 15px;
+    font-size: 15px;
+    margin-right: 40px;
+    text-align: left;
 }

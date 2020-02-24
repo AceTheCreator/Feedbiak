@@ -7,6 +7,8 @@ const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
 const connectMongo = require('connect-mongo');
+require('./config/passport');
+const passport = require('passport');
 const flash = require('connect-flash');
 const session = require('express-session');
 const methodOverride = require('method-override');
@@ -60,6 +62,9 @@ app.use(session({
 }));
 // Connect flash-section
 app.use(flash());
+// Initialize Passport
+app.use(passport.initialize());
+app.use(passport.session());
 // Global variables "connect-flash"
 app.use((req, res, next) => {
   res.locals.success_msg = req.flash('success_msg');
@@ -91,9 +96,9 @@ app.get('/admin/:id', auth, (req, res, next) => {
   const planned = [];
   const inProgress = [];
   const completed = [];
-  if (req.session.guestId || req.session.userId) {
+  if (req.session.userId) {
     admin = 'T';
-    return boardSchmea.find({ boardOwner: req.session.guestId || req.session.userId })
+    return boardSchmea.find({ boardOwner: req.session.userId })
       .sort({ date: 'desc' })
       // eslint-disable-next-line no-shadow
       .then((boards) => {
