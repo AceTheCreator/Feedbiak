@@ -5,7 +5,7 @@ const router = express.Router();
 // User model
 require('../models/User');
 
-const User = mongoose.model('users');
+const User = mongoose.model('User');
 const sgMail = require('@sendgrid/mail');
 
 router.get('/send-invitation', (req, res) => {

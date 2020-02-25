@@ -9,9 +9,9 @@ require('../models/BoardPost');
 require('../models/User');
 require('../models/GuestUser');
 
-const Post = mongoose.model('boardPost');
-const Comment = mongoose.model('comment');
-const User = mongoose.model('users');
+const Post = mongoose.model('BoardPost');
+const Comment = mongoose.model('Comment');
+const User = mongoose.model('User');
 const Guest = mongoose.model('guests');
 
 // Get Post
@@ -24,7 +24,19 @@ router.get('/board-post/:id', (req, res, next) => {
     return Post.findOne({
       _id: req.params.id,
     })
+      .populate({
+        path: 'boardId',
+        select: 'boardName -_id',
+      })
+      .populate({
+        path: '_creator',
+        select: 'fullname -_id',
+      })
+      .populate({
+        path: '_comments',
+      })
       .then((post) => {
+        console.log(post);
         Comment.find({ postId: req.params.id })
           .then((comment) => {
             res.render('routes/post.handlebars', {

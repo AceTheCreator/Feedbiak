@@ -22,7 +22,7 @@ router.get('/login', redirectIfAuth, (req, res) => {
 // Load users model
 require('../models/User');
 
-const User = mongoose.model('users');
+const User = mongoose.model('User');
 
 // User Login Form Post
 router.post('/users/login', (req, res) => {

@@ -91,14 +91,16 @@ app.get('/', redirectIfAuth, (req, res) => {
 
 // Admin Home Route
 
-app.get('/admin', auth, (req, res, next) => {
+app.get(`/admin`, auth, (req, res, next) => {
   let admin;
   const planned = [];
   const inProgress = [];
   const completed = [];
   if (req.session.userId) {
     admin = 'T';
-    return boardSchmea.find({ boardOwner: req.session.userId })
+    return boardSchmea.find({}).populate({
+      path: '_creator',
+    })
       .sort({ date: 'desc' })
       // eslint-disable-next-line no-shadow
       .then((boards) => {
@@ -114,7 +116,8 @@ app.get('/admin', auth, (req, res, next) => {
               completed.push(status[i]);
             }
           }
-          res.render('routes/admin', {
+          console.log(boards);
+          res.render(`routes/admin`, {
             boards,
             admin,
             planned,

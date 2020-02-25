@@ -4,10 +4,10 @@ const { Schema } = mongoose;
 
 const BoardPost = Schema({
   boardId: {
-    type: String,
+    type: Schema.Types.ObjectId, ref: 'Board',
   },
-  boardOwner: {
-    type: String,
+  _creator: {
+    type: Schema.Types.ObjectId, ref: 'User',
   },
   title: {
     type: String,
@@ -28,7 +28,7 @@ const BoardPost = Schema({
     type: Number,
     default: 0,
   },
-  comments: [{ type: Schema.Types.ObjectId, ref: 'comment' }],
+  _comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
 });
 const CommentSchema = Schema({
   postId: { type: String },
@@ -38,6 +38,6 @@ const CommentSchema = Schema({
   avater: { type: String },
 });
 
-const Comment = mongoose.model('comment', CommentSchema);
-const Post = mongoose.model('boardPost', BoardPost);
+const Comment = mongoose.model('Comment', CommentSchema);
+const Post = mongoose.model('BoardPost', BoardPost);
 module.exports = (Comment, Post);
