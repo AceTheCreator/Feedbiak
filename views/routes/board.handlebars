@@ -25,7 +25,7 @@
     <div class="right-ui-panel">
       {{#each posts}}
     <div  class="board-post-list">
-            <form action="/upvote/123" method="POST" class="upvote">
+            <form action="/upvote/{{id}}" method="POST" class="upvote">
                <button type="submit">
         <i class="fas fa-caret-up"></i>
         <div class="count">{{upvote}}</div>

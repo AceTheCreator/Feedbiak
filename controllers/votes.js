@@ -6,9 +6,7 @@ require('../models/Vote');
 require('../models/User');
 require('../models/BoardPost');
 
-const User = mongoose.model('User');
 const Vote = mongoose.model('Vote');
-const BoardPost = mongoose.model('BoardPost');
 
 router.post('/upvote/:id', (req, res) => {
   Vote.findOne({ _boardPost: req.params.id }, (err, vote) => {
