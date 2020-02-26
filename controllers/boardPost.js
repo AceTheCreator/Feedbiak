@@ -7,12 +7,12 @@ const router = express.Router();
 // Board Post model
 require('../models/BoardPost');
 require('../models/User');
-require('../models/GuestUser');
+require('../models/Vote');
 
 const Post = mongoose.model('BoardPost');
 const Comment = mongoose.model('Comment');
 const User = mongoose.model('User');
-const Guest = mongoose.model('guests');
+const Votes = mongoose.model('Vote');
 
 // Get Post
 let postsId;
@@ -21,29 +21,27 @@ router.get('/board-post/:id', (req, res, next) => {
   postsId = req.params.id;
   if (req.session.userId || req.session.guestId) {
     admin = 'T';
-    return Post.findOne({
-      _id: req.params.id,
-    })
+    return Post.findByIdAndUpdate(req.params.id)
       .populate({
-        path: 'boardId',
-        select: 'boardName -_id',
-      })
-      .populate({
-        path: '_creator',
-        select: 'fullname -_id',
+        path: '_votes',
       })
       .populate({
         path: '_comments',
       })
       .then((post) => {
         console.log(post);
-        Comment.find({ postId: req.params.id })
-          .then((comment) => {
-            res.render('routes/post.handlebars', {
-              post,
-              admin,
-              comment,
-            });
+        Votes.find({ _boardPost: req.params.id })
+          .then((votes) => {
+            const voteCount = votes.length;
+            Comment.find({ postId: req.params.id })
+              .then((comment) => {
+                res.render('routes/post.handlebars', {
+                  voteCount,
+                  post,
+                  admin,
+                  comment,
+                });
+              });
           });
       });
   }
@@ -71,17 +69,6 @@ router.put('/board-post/edit/:id', (req, res) => {
         });
     });
 });
-// Board Post Votes
-router.put('/vote', (req, res) => {
-  Post.findOne({ _id: postsId })
-    .then((post) => {
-      // add a vote
-      post.save()
-        .then((post) => {
-          res.redirect(`/board-post/${postsId}`);
-        });
-    });
-});
 // Set Board Post Status
 router.put('/post/edit/:id', (req, res) => {
   Post.findOne({
@@ -95,7 +82,6 @@ router.put('/post/edit/:id', (req, res) => {
           res.redirect(`/board-post/${postsId}`);
         });
     });
-  console.log('HELLO');
 });
 
 // Delete Board Post
@@ -136,8 +122,5 @@ router.post('/post-comment', (req, res) => {
     .catch((err) => {
       throw err;
     });
-  console.log('A new request has been made');
 });
-
-
 module.exports = router;

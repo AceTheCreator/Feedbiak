@@ -91,5 +91,4 @@ router.post('/create-post', Auth, async (req, res) => {
     });
 });
 
-
 module.exports = router;

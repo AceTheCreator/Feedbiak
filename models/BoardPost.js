@@ -20,14 +20,6 @@ const BoardPost = Schema({
     default: 'Open',
   },
   date: { type: Date, default: Date.now },
-  upvote: {
-    type: Number,
-    default: 0,
-  },
-  commentCount: {
-    type: Number,
-    default: 0,
-  },
   _comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
 });
 const CommentSchema = Schema({
