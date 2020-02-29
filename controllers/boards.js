@@ -70,27 +70,6 @@ router.get('/board/:id', async (req, res) => {
     return Post.find({ boardId: req.params.id })
       .sort({ date: 'desc' })
       .then((posts) => {
-        const a = [];
-        posts.map((post) => {
-          a.push(post);
-        });
-        Vote.find().then((votes) => {
-          for (let i = 0; i < a.length; i++) {
-            for (let j = 0; j < votes.length; j++) {
-              console.log(votes[j])
-              console.log(a[i].id)
-              if (votes[j].id === a[i].id) {
-                console.log('found one');
-              }
-            }
-          }
-        });
-        // for (let i = 0; i < a.length; i++) {
-        //   Vote.find({ _boardPost: a[i] })
-        //     .then((votes) => {
-        //       console.log(votes.length);
-        //     });
-        // }
         res.render('routes/board.handlebars', {
           posts,
           admin,

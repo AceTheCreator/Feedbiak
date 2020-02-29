@@ -7,6 +7,7 @@ require('../models/User');
 require('../models/BoardPost');
 
 const Vote = mongoose.model('Vote');
+const BoardPost = mongoose.model('BoardPost');
 
 router.post('/upvote/:id', (req, res) => {
   Vote.findOne({ _boardPost: req.params.id }, (err, vote) => {
@@ -15,6 +16,12 @@ router.post('/upvote/:id', (req, res) => {
         if (err) throw Error;
         if (voter) {
           voter.remove(req.session.userId);
+          BoardPost.findById(req.params.id).then((upvoted) => {
+            const upvote = upvoted.voteCount - 1;
+            upvoted.voteCount = upvote;
+            upvoted.save();
+            console.log(upvoted);
+          });
           res.redirect('/admin');
         }
       });
@@ -25,6 +32,12 @@ router.post('/upvote/:id', (req, res) => {
       });
       newVote.save()
         .then((vote) => {
+          BoardPost.findById(req.params.id).then((upvoted) => {
+            const upvote = upvoted.voteCount + 1;
+            upvoted.voteCount = upvote;
+            upvoted.save();
+            console.log(upvoted);
+          });
           res.redirect('/admin');
         })
         .catch((err) => {

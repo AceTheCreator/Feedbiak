@@ -117,7 +117,6 @@ app.get(`/admin`, auth, (req, res, next) => {
               completed.push(status[i]);
             }
           }
-          console.log(boards);
           res.render(`routes/admin`, {
             boards,
             admin,
@@ -137,13 +136,13 @@ app.use(users);
 app.use(boards);
 // Board Post Routes;
 app.use(posts);
-// Post votes
+// // Post votes
 app.use(vote);
 // Email ivitation routes
 app.use(invite);
 // Guest Routes
 app.use(guest);
-const PORT = process.env.PORT || 5000;
+const PORT = 5000;
 
 app.listen(PORT, () => {
   console.log(`app now listening to port ${PORT}`);
