@@ -96,7 +96,7 @@ router.delete('/post/:id', (req, res) => {
 });
 // Put Comment
 let commentuser;
-router.post('/post-comment', (req, res) => {
+router.post('/post-comment/:id', (req, res) => {
   const getDate = moment().format('MMM Do YY');
   User.findOne({
     _id: req.session.userId,
@@ -116,7 +116,12 @@ router.post('/post-comment', (req, res) => {
     avater: 'https://www.shareicon.net/data/512x512/2016/05/24/770139_man_512x512.png',
   });
   newComment.save()
-    .then((comment) => {
+    .then((newComment) => {
+      Post.findById(req.params.id).then((comment) => {
+        const countComment = comment.commentCount + 1;
+        comment.commentCount = countComment;
+        comment.save();
+      });
       res.redirect(`/board-post/${postsId}`);
     })
     .catch((err) => {
