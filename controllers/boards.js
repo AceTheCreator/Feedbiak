@@ -14,12 +14,10 @@ require('../models/Vote');
 
 const Board = mongoose.model('Board');
 const Post = mongoose.model('BoardPost');
-const Vote = mongoose.model('Vote');
 
 // Global Variables
 let postidentifier;
 let admin;
-let voteCount;
 
 router.get('/create-board', Auth, (req, res) => {
   if (req.session.userId || req.session.guestId) {
@@ -39,21 +37,20 @@ router.post('/boards', Auth, (req, res) => {
     boardUrl,
   } = req.body;
   // Try to find a board
-  Board.findOne({ boardName, boardUrl })
+  Board.findOne({ boardName })
     .then((board) => {
       if (board) {
-        console.log('board already exist');
         res.redirect('/create-board');
       } else {
         const newBoard = new Board({
           _creator: req.session.userId,
-          boardName: req.body.boardName,
-          boardUrl: req.body.boardUrl,
+          boardName,
+          boardUrl,
         });
         newBoard.save()
           // eslint-disable-next-line no-unused-vars
           .then((board) => {
-            res.redirect(`/admin/${req.session.userId}`);
+            res.redirect('/admin');
           })
           .catch((err) => {
             console.log(err);

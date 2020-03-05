@@ -106,7 +106,7 @@ app.get(`/admin`, auth, (req, res, next) => {
       // eslint-disable-next-line no-shadow
       .then((boards) => {
         boardPost.find({
-          boardOwner: req.session.guestId || req.session.userId,
+          _creator: req.session.userId,
         }).then((status) => {
           for (let i = 0; i < status.length; i++) {
             if (status[i].status === 'Planned') {
@@ -142,7 +142,7 @@ app.use(vote);
 app.use(invite);
 // Guest Routes
 app.use(guest);
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(`app now listening to port ${PORT}`);

@@ -29,7 +29,6 @@ router.get('/board-post/:id', (req, res, next) => {
         path: '_comments',
       })
       .then((post) => {
-        console.log(post);
         Votes.find({ _boardPost: req.params.id })
           .then((votes) => {
             const voteCount = votes.length;
