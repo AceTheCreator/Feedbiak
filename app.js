@@ -97,7 +97,7 @@ app.get(`/admin`, auth, (req, res, next) => {
   const planned = [];
   const inProgress = [];
   const completed = [];
-  if (req.session.userId) {
+  if (req.session.userId || req.session.guestAuthId) {
     admin = 'T';
     return boardSchmea.find({}).populate({
       path: '_creator',
@@ -106,7 +106,7 @@ app.get(`/admin`, auth, (req, res, next) => {
       // eslint-disable-next-line no-shadow
       .then((boards) => {
         boardPost.find({
-          _creator: req.session.userId,
+          _creator: req.session.userId || req.session.guestAuthId,
         }).then((status) => {
           for (let i = 0; i < status.length; i++) {
             if (status[i].status === 'Planned') {

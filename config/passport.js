@@ -29,11 +29,12 @@ passport.use(new GoogleStrategy({
   GuestUser.findOne({ providerId: profile.id }, (err, user) => {
     if (err) throw new Error();
     if (user) {
-      console.log(profile);
+      console.log('User exist');
     } else {
       const newGuestUser = new GuestUser({
         providerId: profile.id,
         fullname: profile.displayName,
+        companyIds: '5e623c0e5a53df3e6da6a95e',
       });
       newGuestUser.save()
         .then((user) => {

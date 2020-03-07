@@ -15,6 +15,7 @@ const BoardPost = Schema({
   description: {
     type: String,
   },
+  voter: [String],
   voteCount: {
     type: Number,
     default: 0,

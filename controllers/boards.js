@@ -20,7 +20,7 @@ let postidentifier;
 let admin;
 
 router.get('/create-board', Auth, (req, res) => {
-  if (req.session.userId || req.session.guestId) {
+  if (req.session.userId || req.session.guestAuthId) {
     admin = 'T';
     res.render('routes/createBoard.handlebars', {
       admin,
@@ -43,7 +43,7 @@ router.post('/boards', Auth, (req, res) => {
         res.redirect('/create-board');
       } else {
         const newBoard = new Board({
-          _creator: req.session.userId,
+          _creator: req.session.userId || req.session.guestId,
           boardName,
           boardUrl,
         });
@@ -62,7 +62,7 @@ router.post('/boards', Auth, (req, res) => {
 // Get board route
 router.get('/board/:id', async (req, res) => {
   postidentifier = req.params.id;
-  if (req.session.userId) {
+  if (req.session.userId || req.session.guestAuthId) {
     admin = 'T';
     return Post.find({ boardId: req.params.id })
       .sort({ date: 'desc' })
@@ -78,7 +78,7 @@ router.get('/board/:id', async (req, res) => {
 // Create board post
 router.post('/create-post', Auth, async (req, res) => {
   const newPost = new Post({
-    _creator: req.session.userId,
+    _creator: req.session.userId || req.session.guestId,
     boardId: postidentifier,
     title: req.body.postTitle,
     description: req.body.postDescription,

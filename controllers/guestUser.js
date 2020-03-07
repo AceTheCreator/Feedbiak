@@ -1,12 +1,13 @@
 const passport = require('passport');
 const router = require('express').Router();
+const mongoose = require('mongoose');
 
-let id;
+// Import guest model
+require('../models/GuestUser');
 
+const Guest = mongoose.model('guests');
 
-router.get('/invite/:id', (req, res) => {
-  id = req.params.id;
-  console.log(id);
+router.get('/invite', (req, res) => {
   res.render('auth/guestLogin.handlebars');
 });
 
@@ -15,9 +16,17 @@ router.get('/auth/google',
 router.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/' }),
   (req, res) => {
-    console.log(id);
-    console.log(req.session.userId);
-    res.redirect('/admin');
+    console.log('Hello');
+    Guest.findById(req.session.passport.user)
+      .then((user) => {
+        console.log(user);
+        req.session.guestAuthId = '5e623c0e5a53df3e6da6a95e';
+        req.session.guestId = user.id;
+        res.redirect('/admin');
+        console.log(req.session.guestId);
+      }).catch((err) => {
+        console.error(err);
+      });
   });
 
 module.exports = router;

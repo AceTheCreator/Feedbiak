@@ -8,7 +8,7 @@ const guestSchema = Schema({
     type: String,
   },
   companyIds: {
-    type: [Array],
+    type: String,
   },
   fullname: {
     type: String,

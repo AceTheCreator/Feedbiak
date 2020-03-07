@@ -7,11 +7,14 @@ const router = express.Router();
 // Board Post model
 require('../models/BoardPost');
 require('../models/User');
+require('../models/GuestUser');
 require('../models/Vote');
+
 
 const Post = mongoose.model('BoardPost');
 const Comment = mongoose.model('Comment');
 const User = mongoose.model('User');
+const Guest = mongoose.model('guests');
 const Votes = mongoose.model('Vote');
 
 // Get Post
@@ -19,7 +22,7 @@ let postsId;
 let admin;
 router.get('/board-post/:id', (req, res, next) => {
   postsId = req.params.id;
-  if (req.session.userId || req.session.guestId) {
+  if (req.session.userId || req.session.guestAuthId) {
     admin = 'T';
     return Post.findByIdAndUpdate(req.params.id)
       .populate({
@@ -29,18 +32,15 @@ router.get('/board-post/:id', (req, res, next) => {
         path: '_comments',
       })
       .then((post) => {
-        Votes.find({ _boardPost: req.params.id })
-          .then((votes) => {
-            const voteCount = votes.length;
-            Comment.find({ postId: req.params.id })
-              .then((comment) => {
-                res.render('routes/post.handlebars', {
-                  voteCount,
-                  post,
-                  admin,
-                  comment,
-                });
-              });
+        const voteCount = post.voter.length;
+        Comment.find({ postId: req.params.id })
+          .then((comment) => {
+            res.render('routes/post.handlebars', {
+              voteCount,
+              post,
+              admin,
+              comment,
+            });
           });
       });
   }
@@ -94,22 +94,27 @@ router.delete('/post/:id', (req, res) => {
     });
 });
 // Put Comment
-let commentuser;
+let commentUser;
 router.post('/post-comment/:id', (req, res) => {
   const getDate = moment().format('MMM Do YY');
-  User.findOne({
-    _id: req.session.userId,
-  })
-    .then((user) => {
-      Guest.findOne({
-        _id: req.session.guestId,
-      }).then((guest) => {
-        commentuser = user.fullname || guest.fullname;
+  const currentUser = req.session.userId || req.session.guestId;
+  if (currentUser === req.session.userId) {
+    User.findOne({
+      _id: currentUser,
+    })
+      .then((user) => {
+        commentUser = user.fullname;
       });
+  } else if (currentUser === req.session.guestId) {
+    Guest.findOne({
+      _id: currentUser,
+    }).then((guest) => {
+      commentUser = guest.fullname;
     });
+  }
   const newComment = new Comment({
     postId: postsId,
-    username: commentuser,
+    username: commentUser,
     text: req.body.commentText,
     date: getDate,
     avater: 'https://www.shareicon.net/data/512x512/2016/05/24/770139_man_512x512.png',
@@ -125,6 +130,35 @@ router.post('/post-comment/:id', (req, res) => {
     })
     .catch((err) => {
       throw err;
+    });
+});
+
+// Voting Implementation
+router.post('/upvote/:id', (req, res) => {
+  Post.findOne({ _id: req.params.id })
+    .then((post) => {
+      if (post) {
+        const authVote = req.session.userId || req.session.guestId;
+        console.log(authVote);
+        let voteCount;
+        voteCount = post.voter;
+        for (let i = 0, voteLength = voteCount.length; i <= voteLength; i++) {
+          if (voteCount[i] == authVote) {
+            voteCount.pop(authVote);
+            post.voter.pop(authVote);
+            break;
+          } else {
+            voteCount.push(authVote);
+            post.voter.push(authVote);
+            console.log(post.voter);
+            post.save();
+          }
+        }
+        req.flash('success_msg', 'vote implemented successfully');
+        res.redirect('/admin');
+      }
+    }).catch((err) => {
+      console.error(err);
     });
 });
 module.exports = router;
