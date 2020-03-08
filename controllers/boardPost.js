@@ -1,3 +1,4 @@
+/* eslint-disable no-inner-declarations */
 const express = require('express');
 
 const mongoose = require('mongoose');
@@ -138,21 +139,48 @@ router.post('/upvote/:id', (req, res) => {
   Post.findOne({ _id: req.params.id })
     .then((post) => {
       if (post) {
-        const authVote = req.session.userId || req.session.guestId;
-        console.log(authVote);
-        let voteCount;
-        voteCount = post.voter;
-        for (let i = 0, voteLength = voteCount.length; i <= voteLength; i++) {
-          if (voteCount[i] == authVote) {
-            voteCount.pop(authVote);
-            post.voter.pop(authVote);
-            break;
-          } else {
-            voteCount.push(authVote);
-            post.voter.push(authVote);
-            console.log(post.voter);
-            post.save();
-          }
+        const whoVoted = req.session.userId || req.session.guestId;
+        if (whoVoted) {
+          Post.findOneAndUpdate({ _id: req.params.id, useFindAndModify: false }).then((data) => {
+            // if (data.voter === undefined || data.voter.length == 0) {
+            //   data.voter.push(whoVoted);
+            //   data.save();
+            // } else {
+            //   for (let i = 0; i < data.voter.length; i++) {
+            //     if (data.voter[i] !== whoVoted) {
+            //       data.voter.push(whoVoted);
+            //       data.save();
+            //       console.log(`youve never voted before${whoVoted}`);
+            //       break;
+            //     } else if (data.voter[i] == whoVoted) {
+            //       console.log(`youve voted before${whoVoted}`);
+            //       // data.voter.pop(whoVoted);
+            //       // data.save();
+            //     }
+            //     break;
+            //   }
+            // }
+            function countInArray(array, what) {
+              if (array.length === 0 || array === undefined) {
+                array.push(what);
+                console.log(array);
+              } else {
+                for (let i = 0, arrayLength = array.length; i < arrayLength; i++) {
+                  if (arrayLength[i] === what) {
+                    console.log(arrayLength);
+                    // for (let j = 0; j < i; j++) {
+                    //   if (arrayLength[i] === arrayLength[j]) {
+                    //     console.log('oops');
+                    //   }
+                    // }
+                  }
+                }
+              }
+              data.save();
+            }
+
+            countInArray(data.voter, whoVoted);
+          });
         }
         req.flash('success_msg', 'vote implemented successfully');
         res.redirect('/admin');
