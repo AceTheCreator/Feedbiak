@@ -80,7 +80,6 @@ const boards = require('./controllers/boards');
 const posts = require('./controllers/boardPost');
 const invite = require('./controllers/email');
 const guest = require('./controllers/guestUser');
-const vote = require('./controllers/votes');
 // Route Middlewares
 const auth = require('./middlewares/auth');
 const redirectIfAuth = require('./middlewares/redirectIfAuth');
@@ -136,8 +135,6 @@ app.use(users);
 app.use(boards);
 // Board Post Routes;
 app.use(posts);
-// // Post votes
-app.use(vote);
 // Email ivitation routes
 app.use(invite);
 // Guest Routes

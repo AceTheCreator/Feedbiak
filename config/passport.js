@@ -28,9 +28,7 @@ passport.use(new GoogleStrategy({
 ((token, tokenSecret, profile, done) => {
   GuestUser.findOne({ providerId: profile.id }, (err, user) => {
     if (err) throw new Error();
-    if (user) {
-      console.log('User exist');
-    } else {
+    if (!user) {
       const newGuestUser = new GuestUser({
         providerId: profile.id,
         fullname: profile.displayName,
@@ -39,6 +37,7 @@ passport.use(new GoogleStrategy({
         .then((user) => {
         });
     }
+
     return done(err, user);
   });
 }

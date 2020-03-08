@@ -22,15 +22,11 @@ router.get('/auth/google/callback',
 router.put('/invite-access', (req, res) => {
   Guest.findById(req.session.passport.user)
     .then((user) => {
-      console.log(user);
       req.session.guestAuthId = req.body.inputInviteId;
       req.session.guestId = user.id;
       user.companyIds = req.body.inputInviteId;
       user.save()
         .then((success) => {
-          console.log(req.session.guestId);
-          console.log(req.session.guestAuthId);
-          console.log(`${user}eree`);
           res.redirect('/admin');
         })
         .catch((failure) => {
