@@ -786,3 +786,12 @@ margin-top: 50px;
     margin-right: 40px;
     text-align: left;
 }
+
+/* Guest invite id form */
+.invite-id{
+    text-align: center;
+}
+.invite-id form{
+    margin-top: 10%;
+    justify-content: center;
+}

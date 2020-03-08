@@ -16,17 +16,29 @@ router.get('/auth/google',
 router.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/' }),
   (req, res) => {
-    console.log('Hello');
-    Guest.findById(req.session.passport.user)
-      .then((user) => {
-        console.log(user);
-        req.session.guestAuthId = '5e623c0e5a53df3e6da6a95e';
-        req.session.guestId = user.id;
-        res.redirect('/admin');
-        console.log(req.session.guestId);
-      }).catch((err) => {
-        console.error(err);
-      });
+    res.render('routes/inviteIdInput');
   });
+
+router.put('/invite-access', (req, res) => {
+  Guest.findById(req.session.passport.user)
+    .then((user) => {
+      console.log(user);
+      req.session.guestAuthId = req.body.inputInviteId;
+      req.session.guestId = user.id;
+      user.companyIds = req.body.inputInviteId;
+      user.save()
+        .then((success) => {
+          console.log(req.session.guestId);
+          console.log(req.session.guestAuthId);
+          console.log(`${user}eree`);
+          res.redirect('/admin');
+        })
+        .catch((failure) => {
+          console.error(failure);
+        });
+    }).catch((err) => {
+      console.error(err);
+    });
+});
 
 module.exports = router;

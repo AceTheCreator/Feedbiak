@@ -34,7 +34,6 @@ passport.use(new GoogleStrategy({
       const newGuestUser = new GuestUser({
         providerId: profile.id,
         fullname: profile.displayName,
-        companyIds: '5e623c0e5a53df3e6da6a95e',
       });
       newGuestUser.save()
         .then((user) => {
