@@ -20,8 +20,8 @@ router.post('/send-invite', (req, res) => {
         to: req.body.emailAddresses,
         from: user.email,
         subject: 'You have been invited to join a team on Feebiak',
-        text: `invitation id ${user.id}`,
-        html: '<div class="email-body" style="text-align:center;"> <h1>Feebiak</h1><br><p>Canny is a simple, organized place to keep track of feedback from customers and teammates.</p> <br> <a href="localhost:8081/invite">Click here to join team</a> </div>',
+        text: `${user.fullname} has invited you to join their team to improve their product, Your invitation id is ${user.id}. Note: The invitation id will be used to access the platform`,
+        html: '<div class="email-body" style="text-align:center;"> <h1>Feebiak</h1><br><p> is a simple, organized place to keep track of feedback from customers and teammates.</p> <br>  <a href="https://feedbiak.herokuapp.com/invite"> click here to get started</a> </div>',
       };
       sgMail.send(msg);
       req.flash('success_msg', 'Succesfully sent invitations to emails');
